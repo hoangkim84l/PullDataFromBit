@@ -25,3 +25,7 @@ if ( ! isset( $content_width ) ) {
  * @since 1.0.0
  */
 require trailingslashit( get_template_directory() ) . 'inc/init.php';
+function boot_session() {
+	session_start();
+  }
+  add_action('wp_loaded','boot_session');

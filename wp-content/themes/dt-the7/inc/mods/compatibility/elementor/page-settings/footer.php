@@ -12,13 +12,46 @@ use The7_Elementor_Compatibility;
 defined( 'ABSPATH' ) || exit;
 
 $template_option_name = The7_Elementor_Compatibility::instance()->page_settings->template_option_name;
+$template_condition = [ PageTemplatesModule::TEMPLATE_CANVAS];
 
 return [
 	'args'     => [
 		'label'     => __( 'Footer settings', 'the7mk2' ),
 		'tab'       => Controls_Manager::TAB_SETTINGS,
-		'condition' => [
-			$template_option_name . '!' => [ PageTemplatesModule::TEMPLATE_CANVAS ],
+		'conditions' => [
+			'relation' => 'or',
+			'terms'    => [
+				[
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => 'the7_template_applied',
+							'operator' => '!=',
+							'value'    => '',
+						],
+						[
+							'name'     => $template_option_name,
+							'operator' => '!in',
+							'value'    => array_merge(['default'], $template_condition),
+						],
+					],
+				],
+				[
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => $template_option_name,
+							'operator' => '!in',
+							'value'    => $template_condition,
+						],
+						[
+							'name'     => 'the7_template_applied',
+							'operator' => '==',
+							'value'    => '',
+						],
+					],
+				],
+			],
 		],
 	],
 	'controls' => [

@@ -727,6 +727,10 @@ If the problem persists, please don\'t hesitate to contact our <a href="%s" targ
 		}
 
 		Elementor\Plugin::$instance->files_manager->clear_cache();
+
+		if ( class_exists( 'ElementorPro\Modules\ThemeBuilder\Module' ) ) {
+			\ElementorPro\Modules\ThemeBuilder\Module::instance()->get_conditions_manager()->get_cache()->regenerate();
+		}
 	}
 
 	public function import_tinvwl_settings() {

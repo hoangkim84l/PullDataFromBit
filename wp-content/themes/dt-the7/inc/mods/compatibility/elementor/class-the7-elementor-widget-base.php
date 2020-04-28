@@ -5,6 +5,7 @@
 
 namespace The7\Adapters\Elementor;
 
+use Elementor\Plugin;
 use Elementor\Widget_Base;
 use The7\Adapters\Elementor\The7_Elementor_Less_Vars_Decorator;
 use \The7_Less_Compiler;
@@ -25,21 +26,19 @@ abstract class The7_Elementor_Widget_Base extends Widget_Base {
 	}
 
 	protected function print_inline_css() {
-		echo '<style type="text/css">';
-		if ( wp_doing_ajax() ) {
+		if ( Plugin::$instance->editor->is_edit_mode() ) {
 			add_filter( 'dt_of_get_option-general-images_lazy_loading', '__return_false' );
+			echo '<style type="text/css">';
 			echo $this->generate_inline_css();
-		} else {
-			echo $this->get_css( $this->get_current_post_id() );
+			echo '</style>';
 		}
-		echo '</style>';
 	}
 
 	/**
 	 * @return false|string
 	 * @throws \Exception
 	 */
-	protected function generate_inline_css() {
+	public function generate_inline_css() {
 		$less_file = $this->get_less_file_name();
 
 		if ( ! $less_file ) {
@@ -51,49 +50,7 @@ abstract class The7_Elementor_Widget_Base extends Widget_Base {
 		return $lessc->compile_file( $less_file, $this->get_less_imports() );
 	}
 
-	/**
-	 * @param null $post_id
-	 *
-	 * @return bool
-	 * @throws \Exception
-	 */
-	public function save_css( $post_id = null ) {
-		global $post;
-
-		$post_id = $post_id ? $post_id : $post->ID;
-		if ( ! $this->get_css( $post_id ) ) {
-			$widgets_css                    = (array) get_post_meta( $post_id, self::WIDGET_CSS_CACHE_ID, true );
-			$widgets_css[ $this->get_id() ] = $this->generate_inline_css();
-			$widgets_css                    = array_filter( $widgets_css );
-			update_post_meta( $post_id, self::WIDGET_CSS_CACHE_ID, $widgets_css );
-		}
-
-		return true;
-	}
-
-	/**
-	 * @param null $post_id
-	 *
-	 * @return string
-	 */
-	public function get_css( $post_id = null ) {
-		global $post;
-
-		$post_id     = $post_id ? $post_id : $post->ID;
-		$uid         = $this->get_id();
-		$widgets_css = (array) get_post_meta( $post_id, self::WIDGET_CSS_CACHE_ID, true );
-		if ( ! array_key_exists( $uid, $widgets_css ) ) {
-			return '';
-		}
-
-		return $widgets_css[ $uid ];
-	}
-
-	public static function delete_widgets_css_cache( $post_id ) {
-		delete_post_meta( $post_id, self::WIDGET_CSS_CACHE_ID );
-	}
-
-	/**
+		/**
 	 * Return less import dir.
 	 *
 	 * @return array

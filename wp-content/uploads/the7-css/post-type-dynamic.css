@@ -8,7 +8,7 @@
   background: linear-gradient(135deg, #1ebbf0 30%, #39dfaa 100%);
 }
 .solid-bg-mixin {
-  background-color: rgba(0,0,0,0.04);
+  background-color: #f7f7f7;
 }
 .header-color {
   color: #333333;
@@ -20,16 +20,16 @@
   color: #333333;
 }
 .footer .header-color {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .color-base-transparent {
-  color: #adafb3;
+  color: #b4b5bb;
 }
 .sidebar-content .color-base-transparent {
-  color: rgba(139,141,148,0.5);
+  color: rgba(133,134,140,0.5);
 }
 .footer .color-base-transparent {
-  color: rgba(139,141,148,0.5);
+  color: rgba(51,51,51,0.5);
 }
 .outline-element-decoration .outline-decoration {
   -webkit-box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0);
@@ -43,7 +43,7 @@
 .testimonial-item .ts-viewport,
 .bg-on.team-container,
 .dt-team-shortcode.content-bg-on .team-container {
-  background-color: rgba(0,0,0,0.04);
+  background-color: #f7f7f7;
 }
 .outline-element-decoration .testimonial-item:not(.testimonial-item-slider),
 .outline-element-decoration .testimonial-item .ts-viewport,
@@ -60,8 +60,8 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
 }
 .dt-team-shortcode .team-content {
-  font-size: 15px;
-  line-height: 27px;
+  font-size: 14px;
+  line-height: 25px;
 }
 .testimonial-item .testimonial-vcard .text-secondary,
 .testimonial-item .testimonial-vcard .text-primary,
@@ -76,7 +76,7 @@
 .footer .testimonial-item .testimonial-vcard .text-secondary,
 .footer .testimonial-item .testimonial-vcard .text-primary,
 .footer .testimonial-item .testimonial-vcard .text-primary * {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .testimonial-item .testimonial-vcard a.text-primary:hover,
 .testimonial-item .testimonial-vcard a.text-primary:hover * {
@@ -88,7 +88,7 @@
   text-transform: none;
 }
 .dt-team-shortcode .team-author p {
-  font:    16px / 28px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
   color: #1ebbf0;
 }
@@ -110,12 +110,12 @@
   color: #333333;
 }
 .footer .team-author p {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .testimonial-vcard .text-secondary {
   color: #333333;
   font-size: 13px;
-  line-height: 25px;
+  line-height: 23px;
   font-weight: bold;
 }
 .dt-mega-parent .sidebar-content .widget .testimonial-vcard .text-secondary {
@@ -125,11 +125,11 @@
   color: #333333;
 }
 .footer .testimonial-vcard .text-secondary {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .dt-testimonials-shortcode .testimonial-vcard .text-secondary {
-  font-size: 15px;
-  line-height: 27px;
+  font-size: 14px;
+  line-height: 25px;
   font-weight: normal;
   color: #1ebbf0;
 }
@@ -149,8 +149,8 @@
 }
 .testimonial-vcard .text-primary {
   color: #333333;
-  font-size: 15px;
-  line-height: 27px;
+  font-size: 14px;
+  line-height: 25px;
   font-weight: bold;
 }
 .dt-mega-parent .sidebar-content .widget .testimonial-vcard .text-primary {
@@ -160,7 +160,7 @@
   color: #333333;
 }
 .footer .testimonial-vcard .text-primary {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .testimonial-vcard .text-primary * {
   color: #333333;
@@ -172,7 +172,7 @@
   color: #333333;
 }
 .footer .testimonial-vcard .text-primary * {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .dt-testimonials-shortcode .testimonial-vcard .text-primary {
   font: normal  normal 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
@@ -212,7 +212,7 @@
 }
 .footer .widget .team-author-name,
 .footer .widget .team-author-name a {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .team-author-name,
 .team-author-name a {
@@ -228,10 +228,10 @@
 }
 .footer .team-author-name,
 .footer .team-author-name a {
-  color: #eeeeee;
+  color: #ffffff;
 }
 .rsTitle {
-  font:   bold 52px / 62px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 44px / 54px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .rsDesc {
@@ -259,16 +259,16 @@
     font:   bold 16px / 26px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   }
   .rsDesc {
-    font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:    14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   }
 }
 @media screen and (max-width: 320px) {
   .rsTitle {
-    font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:    14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   }
   .rsDesc {
     display: none !important;
-    font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:    14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   }
 }
 #main-slideshow .progress-spinner-left,
@@ -277,12 +277,12 @@
 }
 .slider-content .owl-dot:not(.active):not(:hover),
 .slider-content .owl-dot:not(.active):hover {
-  -webkit-box-shadow: inset 0 0 0 2px rgba(139,141,148,0.35);
-  box-shadow: inset 0 0 0 2px rgba(139,141,148,0.35);
+  -webkit-box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
+  box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
 }
 .slider-content .owl-dot.active {
-  -webkit-box-shadow: inset 0 0 0 20px rgba(139,141,148,0.35);
-  box-shadow: inset 0 0 0 20px rgba(139,141,148,0.35);
+  -webkit-box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
+  box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
 }
 .dt-mega-parent .sidebar-content .widget .slider-content .owl-dot:not(.active):not(:hover),
 .dt-mega-parent .sidebar-content .widget .slider-content .owl-dot:not(.active):hover {
@@ -297,20 +297,20 @@
 .sidebar .slider-content .owl-dot:not(.active):hover,
 .sidebar-content .slider-content .owl-dot:not(.active):not(:hover),
 .sidebar-content .slider-content .owl-dot:not(.active):hover {
-  -webkit-box-shadow: inset 0 0 0 2px rgba(139,141,148,0.35);
-  box-shadow: inset 0 0 0 2px rgba(139,141,148,0.35);
+  -webkit-box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
+  box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
 }
 .sidebar .slider-content .owl-dot.active,
 .sidebar-content .slider-content .owl-dot.active {
-  -webkit-box-shadow: inset 0 0 0 20px rgba(139,141,148,0.35);
-  box-shadow: inset 0 0 0 20px rgba(139,141,148,0.35);
+  -webkit-box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
+  box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
 }
 .footer .slider-content .owl-dot:not(.active):not(:hover),
 .footer .slider-content .owl-dot:not(.active):hover {
-  -webkit-box-shadow: inset 0 0 0 2px rgba(139,141,148,0.35);
-  box-shadow: inset 0 0 0 2px rgba(139,141,148,0.35);
+  -webkit-box-shadow: inset 0 0 0 2px rgba(51,51,51,0.35);
+  box-shadow: inset 0 0 0 2px rgba(51,51,51,0.35);
 }
 .footer .slider-content .owl-dot.active {
-  -webkit-box-shadow: inset 0 0 0 20px rgba(139,141,148,0.35);
-  box-shadow: inset 0 0 0 20px rgba(139,141,148,0.35);
+  -webkit-box-shadow: inset 0 0 0 20px rgba(51,51,51,0.35);
+  box-shadow: inset 0 0 0 20px rgba(51,51,51,0.35);
 }

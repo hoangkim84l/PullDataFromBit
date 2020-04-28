@@ -25,11 +25,16 @@ class The7_Elementor_Color_Meta_Adapter {
 			return false;
 		}
 
+		if ( empty( $val ) ) {
+			$val = $control['args']['default'];
+		}
+
 		try {
 			$color = new Color( $val );
-			return
-				$document->update_meta( $control['meta']['color'], '#' . $color->getHex() ) &&
-				$document->update_meta( $control['meta']['opacity'], $color->getOpacity() );
+			$document->update_meta( $control['meta']['color'], '#' . $color->getHex() );
+			$document->update_meta( $control['meta']['opacity'], $color->getOpacity() );
+
+			return true;
 		} catch ( Exception $e ) {
 			error_log( $e->getMessage() );
 

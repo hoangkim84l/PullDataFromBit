@@ -232,3 +232,9 @@ function the7_regenerate_post_css() {
 
 	return __FUNCTION__;
 }
+
+function the7_update_purge_elementor_cache() {
+	if ( class_exists( 'Elementor\Plugin' ) ) {
+		Elementor\Plugin::$instance->files_manager->clear_cache();
+	}
+}

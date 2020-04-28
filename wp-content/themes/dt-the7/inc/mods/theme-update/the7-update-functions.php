@@ -943,3 +943,11 @@ function the7_update_8502_migrate_post_footer_source_for_elementor() {
 function the7_update_8502_db_version() {
 	The7_Install::update_db_version( '8.5.0.2' );
 }
+
+function the7_update_860_db_version() {
+	The7_Install::update_db_version( '8.6.0' );
+}
+
+function the7_update_870_db_version() {
+	The7_Install::update_db_version( '8.7.0' );
+}

@@ -7,3 +7,131 @@ Version: 1.0.0
 License: This WordPress theme is comprised of two parts: (1) The PHP code and integrated HTML are licensed under the GPL license as is WordPress itself.  You will find a copy of the license text in the same directory as this text file. Or you can read it here: http://wordpress.org/about/gpl/ (2) All other parts of the theme including, but not limited to the CSS code, images, and design are licensed according to the license purchased. Read about licensing details here: http://themeforest.net/licenses/regular_extended
 Template: dt-the7
 */
+
+
+/*Custom header*/
+
+.masthead.inline-header.right.full-height {
+    background-color: #b8d9be !important;
+}
+
+.main-nav>li:not(.wpml-ls-item)>a .menu-text:hover,
+.main-nav>li:not(.wpml-ls-item)>a .menu-text:active {
+    font-weight: bold;
+    border-bottom: 2px solid green;
+    padding-bottom: 2px;
+}
+
+
+/*Custom footer*/
+
+#footer .widget-title {
+    text-align: left;
+    font-family: Open Sans;
+    font-size: 15px;
+    line-height: 32px;
+    letter-spacing: 0px;
+    color: #333333;
+    opacity: 1;
+}
+
+.widgetcontactus li {
+    text-align: left;
+    font-family: Open Sans;
+    font-size: 14px;
+    line-height: 34px;
+    letter-spacing: 0px;
+    font-weight: 300;
+    color: #333333;
+    opacity: 1;
+}
+
+.widgetlinks li a {
+    text-align: left;
+    font-family: Open Sans;
+    font-size: 14px;
+    line-height: 34px;
+    letter-spacing: 0px;
+    font-weight: 300;
+    color: #333333 !important;
+    opacity: 1;
+}
+
+.widgetlinks li a:hover {
+    color: #309B42 !important;
+}
+
+.textwidget .form-group {
+    width: 70%;
+    float: left;
+}
+
+.textwidget .form-group .form-control {
+    height: 31px;
+}
+
+input:focus {
+    outline: none !important;
+    border-color: #309B42;
+}
+
+.textwidget .btn.btn-default {
+    text-align: center;
+    font-family: Open Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    font-size: 12px;
+    line-height: 32px;
+    height: 31px;
+    padding: 0 10px;
+    background-color: #309B42;
+    border: unset;
+}
+
+.textwidget img.size-mediums {
+    height: 25px;
+    width: 25px;
+    display: inline;
+    float: left;
+    margin-right: 12px;
+    margin-top: 20px;
+    border-radius: 50%;
+    background-color: gray;
+    padding: 5px;
+}
+
+.textwidget img.size-mediums:hover {
+    background-color: #309B42;
+}
+
+#bottom-bar {
+    box-shadow: 0px 0px 1px #0000001F;
+}
+
+.wf-float-left {
+    text-align: center;
+    font-family: Open Sans;
+    font-size: 14px;
+    line-height: 32px;
+    font-weight: 300;
+    letter-spacing: 0px;
+    color: #333333;
+    opacity: 1;
+    width: 100%;
+    text-align: center;
+}
+
+.wf-float-right {
+    width: 150px;
+}
+
+#img-foo-bar {
+    width: 150px;
+}
+
+#img-foo-bar img {
+    margin-right: 15px;
+    display: inline;
+    float: left;
+}

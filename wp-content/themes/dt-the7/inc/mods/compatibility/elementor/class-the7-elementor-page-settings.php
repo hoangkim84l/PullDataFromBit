@@ -1,7 +1,6 @@
 <?php
 /**
  * The7 page settings.
- *
  * @package The7
  */
 
@@ -10,8 +9,8 @@ namespace The7\Adapters\Elementor;
 use Elementor\Controls_Manager;
 use Elementor\Plugin;
 use ElementorPro\Modules\ThemeBuilder\Documents\Theme_Page_Document;
-use ElementorPro\Modules\ThemeBuilder\Module;
-use \The7_Post_CSS_Generator;
+use The7\Adapters\Elementor\Pro\ThemeSupport\The7_Theme_Support;
+use The7_Elementor_Compatibility;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,7 +18,6 @@ class The7_Elementor_Page_Settings {
 
 	/**
 	 * Custom Elementor controls.
-	 *
 	 * @var array $controls Controls array.
 	 */
 	protected $controls = [];
@@ -39,23 +37,23 @@ class The7_Elementor_Page_Settings {
 	public function on_elementor_preview_init() {
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'enqueue_editor_preview_scripts' ] );
 
-		$this->maybe_override_post_meta($this->get_document());
-		$this->maybe_override_post_meta($this->get_footer_document());
+		$this->maybe_override_post_meta( The7_Elementor_Compatibility::get_frontend_document() );
+		$this->maybe_override_post_meta( The7_Elementor_Compatibility::get_document_applied_for_location( 'footer' ) );
+		$this->maybe_override_post_meta( The7_Elementor_Compatibility::get_document_applied_for_location( 'header' ) );
 	}
 
 	/**
 	 * Add 'get_post_metadata' filter that override preview metadata with one from the latest post revision.
-	 *
 	 * While editing, Elementor creates post reviews and sotre modified data there, but preview post with original
 	 * metadata. This little trick allows us to see metadata changes in the preview.
 	 */
-	public function maybe_override_post_meta($document) {
+	public function maybe_override_post_meta( $document ) {
 		if ( ! $document ) {
 			return;
 		}
 
 		$document_post_id = $document->get_id();
-		$main_post_id     = $document->get_main_id();
+		$main_post_id = $document->get_main_id();
 
 		if ( ! $document_post_id || ! $main_post_id ) {
 			return;
@@ -92,6 +90,7 @@ class The7_Elementor_Page_Settings {
 
 			$document->end_controls_section();
 		}
+		$this->inject_template_notices_in_document( $document );
 	}
 
 	/**
@@ -105,7 +104,7 @@ class The7_Elementor_Page_Settings {
 		$document = Plugin::$instance->documents->get_doc_or_auto_save( Plugin::$instance->editor->get_post_id() );
 
 		if ( $document && isset( $settings['initial_document']['settings']['settings'] ) ) {
-			$post_id       = $document->get_post()->ID;
+			$post_id = $document->get_post()->ID;
 			$page_settings = $settings['initial_document']['settings']['settings'];
 
 			foreach ( $this->controls as $control_id => $control ) {
@@ -115,7 +114,11 @@ class The7_Elementor_Page_Settings {
 				}
 
 				if ( isset( $control['meta'] ) && $this->metadata_exists( $post_id, $control['meta'] ) ) {
-					$page_settings[ $control_id ] = $document->get_meta( $control['meta'], true );
+					$is_single = true;
+					if ( isset( $control['args']['multiple'] ) ) {
+						$is_single = ! $control['args']['multiple'];
+					}
+					$page_settings[ $control_id ] = get_post_meta( $post_id, $control['meta'], $is_single );
 				}
 			}
 
@@ -138,6 +141,8 @@ class The7_Elementor_Page_Settings {
 
 		$controls = $this->get_sections_controls( $this->get_sections( $document ) );
 
+		$post = $document->get_post();
+		$post_id = $post->ID;
 		foreach ( $controls as $control_id => $control ) {
 			$val = isset( $control['args']['default'] ) ? $control['args']['default'] : '';
 			if ( isset( $data['settings'][ $control_id ] ) ) {
@@ -154,12 +159,23 @@ class The7_Elementor_Page_Settings {
 			}
 
 			if ( isset( $control['meta'] ) && is_string( $control['meta'] ) ) {
-				$document->update_meta( $control['meta'], $val );
+				if ( isset( $control['args']['multiple'] ) && $control['args']['multiple'] ) {
+					$old = get_post_meta( $post_id, $control['meta'], false );
+					foreach ( $val as $new_value ) {
+						if ( ! in_array( $new_value, $old ) ) {
+							add_metadata( 'post', $post_id, $control['meta'], $new_value, false );
+						}
+					}
+					foreach ( $old as $old_value ) {
+						if ( ! in_array( $old_value, $val ) ) {
+							delete_metadata( "post", $post_id, $control['meta'], $old_value );
+						}
+					}
+				} else {
+					$document->update_meta( $control['meta'], $val );
+				}
 			}
 		}
-
-		$post    = $document->get_post();
-		$post_id = $post->ID;
 
 		// Fill revision meta fields from the main post.
 		if ( $post->post_type === 'revision' ) {
@@ -176,16 +192,10 @@ class The7_Elementor_Page_Settings {
 		the7_register_style( 'the7-elementor-editor', PRESSCORE_ADMIN_URI . '/assets/css/elementor-editor' );
 		wp_enqueue_style( 'the7-elementor-editor' );
 
-		wp_enqueue_script(
-			'the7-elementor-page-settings',
-			PRESSCORE_ADMIN_URI . '/assets/js/elementor/page-settings.js',
-			[],
-			THE7_VERSION,
-			true
-		);
+		wp_enqueue_script( 'the7-elementor-page-settings', PRESSCORE_ADMIN_URI . '/assets/js/elementor/page-settings.js', [], THE7_VERSION, true );
 
 		$controls_ids = [];
-		$sections = $this->get_sections( null);
+		$sections = $this->get_sections( null );
 		$controls = $this->get_sections_controls( $sections );
 
 		foreach ( $controls as $id => $control ) {
@@ -196,47 +206,19 @@ class The7_Elementor_Page_Settings {
 			$controls_ids[] = $id;
 		}
 
-		wp_localize_script(
-			'the7-elementor-page-settings',
-			'the7Elementor',
-			[
-				'controlsIds' => $controls_ids,
-			]
-		);
+		wp_localize_script( 'the7-elementor-page-settings', 'the7Elementor', [
+			'controlsIds' => $controls_ids,
+		] );
 	}
 
 	/**
 	 * Register frontend resources.
 	 */
 	public function enqueue_editor_preview_scripts() {
-		the7_register_style(
-			'the7-elementor-editor-preview',
-			PRESSCORE_ADMIN_URI . '/assets/css/elementor-editor-preview'
-		);
+		the7_register_style( 'the7-elementor-editor-preview', PRESSCORE_ADMIN_URI . '/assets/css/elementor-editor-preview' );
 		wp_enqueue_style( 'the7-elementor-editor-preview' );
 	}
 
-	/**
-	 * @return \Elementor\Core\Base\Document|false
-	 */
-	public function get_document() {
-		return Plugin::$instance->documents->get_doc_for_frontend( get_the_ID() );
-	}
-
-	/**
-	 * @return \Elementor\Core\Base\Document|false
-	 */
-	public function get_footer_document() {
-		$footer_document = null;
-		if (defined( 'ELEMENTOR_PRO_VERSION' ) ) {
-			$footers = Module::instance()->get_conditions_manager()->get_documents_for_location( 'footer' );
-			foreach ( $footers as $document ) {
-				$footer_document = Plugin::$instance->documents->get_doc_or_auto_save( $document->get_id() );
-				break;
-			}
-		}
-		return $footer_document;
-	}
 
 	/**
 	 * Return page settings definition.
@@ -249,7 +231,7 @@ class The7_Elementor_Page_Settings {
 	protected function get_sections( $document ) {
 		$sections_definition = [
 			'the7_document_title_section' => [
-				'exclude_documents' => [ 'footer', 'header', 'section' ],
+				'exclude_documents' => [ 'footer', 'section' ],
 				'file'              => 'page-title.php',
 			],
 			'the7_document_sidebar'       => [
@@ -265,13 +247,11 @@ class The7_Elementor_Page_Settings {
 				'file'              => 'paddings.php',
 			],
 		];
-		if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
-			$sections_definition['the7_document_footer']['file'] = 'footer-pro.php';
-		}
 
 		$sections = [];
+
 		$document_name = '';
-		if ( ! empty( $document ) ) {
+		if ( $document ) {
 			$document_name = $document->get_name();
 			$this->template_option_name = 'template';
 			if ( defined( 'ELEMENTOR_PRO_VERSION' ) && $document instanceof Theme_Page_Document ) {
@@ -280,6 +260,7 @@ class The7_Elementor_Page_Settings {
 				$this->template_option_name = 'post_status'; //workaround if there no template and  page_template on the page
 			}
 		}
+
 		foreach ( $sections_definition as $section_id => $section ) {
 			if ( $document_name ) {
 				if ( ! empty ( $section['only_documents'] ) && ! in_array( $document_name, $section['only_documents'], true ) ) {
@@ -332,7 +313,7 @@ class The7_Elementor_Page_Settings {
 		$post_meta_cache = $post_meta_cache[ $to_post ];
 
 		$main_meta_cache = wp_cache_get( $from_post, 'post_meta' );
-		if ( ! empty( $main_meta_cache )) {
+		if ( ! empty( $main_meta_cache ) ) {
 			foreach ( $main_meta_cache as $meta_key => $meta_value ) {
 				if ( strpos( $meta_key, '_dt_' ) !== 0 ) {
 					continue;
@@ -365,5 +346,164 @@ class The7_Elementor_Page_Settings {
 		}
 
 		wp_cache_replace( $to_post, $post_meta_cache, 'post_meta' );
+	}
+
+	protected function inject_template_notices_in_document( $document ) {
+		if ( ! $document ) {
+			return;
+		}
+		$not_allowed_documents = [ 'footer', 'section', 'widget' ];
+		if ( ! in_array( $document->get_name(), $not_allowed_documents, true ) ) {
+			$header_layout = of_get_option( 'header-layout' );
+			if ( $header_layout == 'side' || $header_layout == 'side_line' ) {
+				$header_name = '';
+				if ( $header_layout == 'side' ){
+					$header_name =  __( 'side', 'the7mk2' );
+				}
+				else if ($header_layout == 'side_line') {
+					$header_name = __( 'side line', 'the7mk2' );
+				}
+				$elements = [
+					"the7_document_disabled_header_heading" => [
+						'the7_document_title' => [ 'disabled' ],
+					],
+					"the7_document_header_heading"          => [
+						'the7_document_title' => [ 'slideshow' ],
+					],
+				];
+				foreach ( $elements as $key => $val ) {
+					$document->start_injection( [
+						'of' => $key,
+						'at' => 'after',
+					] );
+					$document->add_control( $key . '_transparent_header_restriction_message', [
+						'type'            => Controls_Manager::RAW_HTML,
+						'raw'             => sprintf( __( 'A %s header is being used. “Transparent” and “below the slideshow” options will not affect it', 'the7mk2' ), $header_name ),
+						'separator'       => 'none',
+						'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+						'condition'       => $val,
+					] );
+					$document->end_injection();
+				}
+			}
+		}
+		$not_allowed_documents = [ 'footer', 'header', 'section', 'archive', 'widget' ];
+		if ( in_array( $document->get_name(), $not_allowed_documents, true ) ) {
+			return;
+		}
+		$applied_archive_template_id = '';
+		$applied_header_template_id = '';
+		$applied_footer_template_id = '';
+		if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
+			//check if archive applied
+			$template_id = The7_Elementor_Compatibility::get_applied_archive_page_id( $applied_archive_template_id );
+			$document_front = The7_Elementor_Compatibility::get_frontend_document();
+			if ( $document_front ) {
+				$curr_document_id = $document_front->get_id();
+				if ( $curr_document_id !== $template_id ) {
+					$applied_archive_template_id = $template_id;
+				}
+			}
+			//check if header applied
+			$applied_header_template_id = The7_Elementor_Compatibility::get_document_id_for_location( 'header', $applied_header_template_id );
+			//check if footer applied
+			$applied_footer_template_id = The7_Elementor_Compatibility::get_document_id_for_location( 'footer', $applied_footer_template_id );
+
+		}
+		$document->start_injection( [
+			'of'       => 'post_status',
+			'fallback' => [
+				'of' => 'post_title',
+			],
+		] );
+		if ( ! empty( $applied_archive_template_id ) ) {
+			$document->add_control( 'the7_document_page_template_applied_message', [
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf( __( 'A <a href="%s" target="_blank">page template</a> is being applied to this page. To edit individual page settings, please exclude this page from template display conditions, or choose the Page Layout other than "Default".', 'the7mk2' ), Plugin::$instance->documents->get( $template_id )->get_edit_url() ),
+				'separator'       => 'none',
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'conditions'      => [
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => $this->template_option_name,
+							'operator' => '==',
+							'value'    => 'default',
+						],
+						[
+							'name'     => 'the7_template_applied',
+							'operator' => '!=',
+							'value'    => '',
+						],
+					],
+				],
+			] );
+			$document->add_control( 'the7_document_page_template_applied_no_effect_message', [
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf( __( 'A <a href="%s" target="_blank">page template</a> is being applied to this page. However, it will not take effect unless you change the Page Layout to "Default".', 'the7mk2' ), Plugin::$instance->documents->get( $template_id )->get_edit_url() ),
+				'separator'       => 'none',
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'conditions'      => [
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => $this->template_option_name,
+							'operator' => '!=',
+							'value'    => 'default',
+						],
+						[
+							'name'     => 'the7_template_applied',
+							'operator' => '!=',
+							'value'    => '',
+						],
+					],
+				],
+			] );
+		}
+		$document->add_control( 'the7_template_applied', [
+			'type'        => Controls_Manager::HIDDEN,
+			'default'     => $applied_archive_template_id,
+			'render_type' => 'none',
+		] );
+		$document->end_injection();
+
+		$document_template_message = __( 'A <a href="%1$s" target="_blank">%2$s template</a>  is being applied to this page. To edit individual %2$s settings, please exclude this page from template display conditions.', 'the7mk2' );
+		if ( ! empty( $applied_header_template_id ) ) {
+			$document->start_injection( [
+				'of' => 'the7_document_title',
+				'at' => 'before',
+			] );
+			$document->add_control( 'the7_document_header_template_applied_message', [
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf($document_template_message , Plugin::$instance->documents->get( $applied_header_template_id )->get_edit_url(), __( 'header', 'the7mk2' )),
+				'separator'       => 'none',
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+			] );
+			$document->add_control( 'the7_document_header_template_applied', [
+				'type'        => Controls_Manager::HIDDEN,
+				'default'     => $applied_header_template_id,
+				'render_type' => 'none',
+			] );
+			$document->end_injection();
+		}
+
+		if ( ! empty( $applied_footer_template_id ) ) {
+			$document->start_injection( [
+				'of' => 'the7_document_show_footer_wa',
+				'at' => 'before',
+			] );
+			$document->add_control( 'the7_document_footer_template_applied_message', [
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf($document_template_message , Plugin::$instance->documents->get( $applied_footer_template_id )->get_edit_url(), __( 'footer', 'the7mk2' )),
+				'separator'       => 'none',
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+			] );
+			$document->add_control( 'the7_document_footer_template_applied', [
+				'type'        => Controls_Manager::HIDDEN,
+				'default'     => $applied_footer_template_id,
+				'render_type' => 'none',
+			] );
+			$document->end_injection();
+		}
 	}
 }

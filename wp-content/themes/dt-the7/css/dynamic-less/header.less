@@ -63,13 +63,59 @@
 		/*- Line*/
 
 		.masthead.line-decoration:not(.side-header):not(.mixed-header):not(.masthead-mobile-header) {
-			border-bottom: 1px solid @header-decoration;
+			border-bottom: @header-decoration-size solid @header-decoration;
 		}
 		.header-side-left .masthead.line-decoration:not(.mixed-header):not(.masthead-mobile-header)  {
-			border-right: 1px solid @header-decoration;
+			border-right: @header-decoration-size solid @header-decoration;
 		}
 		.header-side-right .masthead.line-decoration:not(.mixed-header):not(.masthead-mobile-header)  {
-			border-left: 1px solid @header-decoration;
+			border-left: @header-decoration-size solid @header-decoration;
+		}
+		.masthead.content-width-line-decoration:not(.mixed-header):not(.side-header):not(.masthead-mobile-header):not(#phantom) {
+			& .header-bar {
+				padding-bottom: @header-decoration-size;
+				&:after {
+					position: absolute;
+					bottom: 0;
+					left: auto;
+					right: auto;
+					content: "";
+					width: calc(100% ~'-' @header-right-padding ~'-' @header-left-padding);
+					height: @header-decoration-size;
+					background: @header-decoration;
+				}
+				//border-bottom: @header-decoration-size solid @header-decoration;
+			}
+		}
+		.header-side-left .masthead.content-width-line-decoration:not(.mixed-header):not(.masthead-mobile-header)  {
+			& .header-bar {
+				//border-right: @header-decoration-size solid @header-decoration;
+				&:after {
+					position: absolute;
+					content: "";
+					right: 0;
+					bottom: auto;
+					top: auto;
+					height: calc(100% ~'-' @top-content-padding ~'-' @bottom-content-padding );
+					width: @header-decoration-size;
+					background: @header-decoration;
+				}
+			}
+		}
+		.header-side-right .masthead.content-width-line-decoration:not(.mixed-header):not(.masthead-mobile-header)  {
+			& .header-bar {
+				//border-left: @header-decoration-size solid @header-decoration;
+				&:after {
+					position: absolute;
+					content: "";
+					left: 0;
+					bottom: auto;
+					top: auto;
+					height: calc(100% ~'-' @top-content-padding ~'-' @bottom-content-padding );
+					width: @header-decoration-size;
+					background: @header-decoration;
+				}
+			}
 		}
 
 		/*- Line :end*/

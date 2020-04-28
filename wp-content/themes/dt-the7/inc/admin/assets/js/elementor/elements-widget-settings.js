@@ -97,6 +97,10 @@
                     var widgetType = model.attributes.widgetType;
                     var taxonomies = getTaxonomiesOptions(widgetType, $(this).val());
 
+                    if (!taxonomies[0]) {
+                        return;
+                    }
+
                     appendOptionsTo($taxonomySelect, taxonomies, null);
                     model.setSetting(taxonomies[0].value);
                     $taxonomySelect.trigger("change");
@@ -144,6 +148,10 @@
             $postTypeSelect.on("change", function () {
                 var widgetType = model.attributes.widgetType;
                 var taxonomies = getTaxonomiesOptions(widgetType, $(this).val());
+
+                if (!taxonomies[0]) {
+                    return;
+                }
 
                 appendOptionsTo($taxonomySelect, taxonomies, null);
                 model.setSetting(taxonomies[0].value);

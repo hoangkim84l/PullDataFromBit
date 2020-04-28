@@ -2,7 +2,7 @@
 .editor-styles-wrapper .editor-writing-flow,
 .editor-styles-wrapper p,
 .editor-styles-wrapper .wp-block p {
-  font:    16px / 28px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   word-spacing: normal;
 }
 .editor-styles-wrapper .wp-block-cover .wp-block-cover-text,
@@ -12,22 +12,22 @@
 }
 .text-big,
 .dt-accordion-text-big .wpb_accordion_header > a {
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 15px;
+  line-height: 27px;
 }
 .text-normal,
 .dt-accordion-text-normal .wpb_accordion_header > a {
-  font-size: 15px;
-  line-height: 27px;
+  font-size: 14px;
+  line-height: 25px;
 }
 .text-small,
 .dt-accordion-text-small .wpb_accordion_header > a {
   font-size: 13px;
-  line-height: 25px;
+  line-height: 23px;
 }
 .wp-block-heading h1,
 .wp-block-freeform.block-library-rich-text__tinymce > h1 {
-  font:   bold 52px / 62px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 44px / 54px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .wp-block-heading h2,

@@ -23,7 +23,7 @@ class The7_Elementor_Template_Manager {
 
 	public function bootstrap() {
 		add_filter( 'template_include', [ $this, 'template_include' ], 20 );
-		add_filter( 'elementor/theme/need_override_location', [ $this, 'theme_template_include' ], 10, 2 );
+		add_filter( 'elementor/theme/need_override_location', [ $this, 'theme_template_include' ], 20, 2 ); //use 20 priority to override woocommerce documents
 	}
 
 	/**
@@ -109,6 +109,7 @@ class The7_Elementor_Template_Manager {
 		presscore_config()->set( 'footer_show', false );
 		presscore_config()->set( 'sidebar_position', 'disabled' );
 		presscore_config()->set( 'header_title', 'false' );
+		presscore_config()->set( 'header.floating_navigation.enabled' , 'disabled' ) ;
 	}
 
 	/**

@@ -39,7 +39,7 @@ class The7_Color extends Tag {
 	public function render() {
 		$color_type = $this->get_settings( 'color-type' );
 		if ( ! empty( $color_type ) ) {
-			$value =  $this->get_color( $color_type );
+			$value = $this->get_color( $color_type );
 		}
 
 		if ( empty( $value ) && $this->get_settings( 'fallback' ) ) {
@@ -53,11 +53,17 @@ class The7_Color extends Tag {
 
 	private function get_custom_keys_array() {
 		$options = [
-			''                             => __( 'Select...', 'the7mk2' ),
-			'content-headers_color'        => __( 'Headings', 'the7mk2' ),
-			'content-primary_text_color'   => __( 'Primary text', 'the7mk2' ),
-			'content-secondary_text_color' => __( 'Secondary text', 'the7mk2' ),
-			'accent'                       => __( 'Accent', 'the7mk2' ),
+			''                                => __( 'Select...', 'the7mk2' ),
+			'content-headers_color'           => __( 'Headings', 'the7mk2' ),
+			'content-primary_text_color'      => __( 'Primary text', 'the7mk2' ),
+			'content-secondary_text_color'    => __( 'Secondary text', 'the7mk2' ),
+			'accent'                          => __( 'Accent', 'the7mk2' ),
+			'buttons-color_mode'              => __( 'Button background normal', 'the7mk2' ),
+			'buttons-hover_color_mode'        => __( 'Button background hover', 'the7mk2' ),
+			'buttons-text_color_mode'         => __( 'Button text normal', 'the7mk2' ),
+			'buttons-text_hover_color_mode'   => __( 'Button text hover', 'the7mk2' ),
+			'buttons-border-color_mode'       => __( 'Button border normal', 'the7mk2' ),
+			'buttons-hover-border-color_mode' => __( 'Button border hover', 'the7mk2' ),
 		];
 
 		return $options;
@@ -69,7 +75,36 @@ class The7_Color extends Tag {
 				$color_val = the7_theme_accent_color();
 				break;
 			default:
+				if ( substr_compare( $color_type, '_mode', - strlen( '_mode' ) ) === 0 ) {
+					$color_val = $this->get_simplified_the7_color( $color_type );
+					break;
+				}
 				$color_val = of_get_option( $color_type, '#000000' );
+				break;
+		}
+
+		return $color_val;
+	}
+
+	/**
+	 * Return simplified hex color.
+	 */
+	private function get_simplified_the7_color( $color_mode_option ) {
+		$color_val = '#ffffff00';
+
+		$color_option = str_replace( "_mode", "", $color_mode_option );
+		switch ( of_get_option( $color_mode_option ) ) {
+			case 'disabled':
+				break;
+			case 'accent':
+				$color_val = the7_theme_accent_color();
+				break;
+			case 'color':
+				$color_val = of_get_option( $color_option );
+				break;
+			case 'gradient':
+				$gradient_color = of_get_option( $color_option + '_gradient' );
+				$color_val = isset( $gradient_color[0] ) ? $gradient_color[0] : '#ffffff';
 				break;
 		}
 

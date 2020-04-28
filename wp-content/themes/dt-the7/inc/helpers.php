@@ -228,9 +228,6 @@ if ( ! function_exists( 'presscore_get_category_list' ) ) :
 			( ( count( $data['terms'] ) == 1 && !empty( $data['other_count'] ) ) ||
 			count( $data['terms'] ) > 1 )
 		) {
-			if ( !empty( $args['item_class'] ) ) {
-				$args['item_class'] = 'class="' . esc_attr($args['item_class']) . '"';
-			}
 
 			$replace_list = array( '%HREF%', '%CLASS%', '%TERM_DESC%', '%TERM_NICENAME%', '%TERM_SLUG%', '%TERM_ID%', '%COUNT%', '%CATEGORY_ID%' );
 
@@ -252,6 +249,8 @@ if ( ! function_exists( 'presscore_get_category_list' ) ) :
 				if ( in_array( (string) $args['current'], array( (string) $term->term_id, (string) $term->slug ), true ) ) {
 					$item_class[] = $args['act_class'];
 				}
+
+				$item_class[] = (string) $term->slug;
 
 				if ( $item_class ) {
 					$item_class = sprintf( 'class="%s"', esc_attr( implode( ' ', $item_class ) ) );

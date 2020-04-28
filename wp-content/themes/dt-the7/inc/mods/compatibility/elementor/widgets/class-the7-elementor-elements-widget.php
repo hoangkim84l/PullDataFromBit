@@ -102,10 +102,11 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 		$this->add_control(
 			'post_type',
 			[
-				'label'   => __( 'Post type', 'the7mk2' ),
+				'label'   => __( 'Source', 'the7mk2' ),
 				'type'    => Controls_Manager::SELECT2,
 				'default' => 'post',
 				'options' => the7_elementor_elements_widget_post_types(),
+				'classes' => 'select2-medium-width',
 			]
 		);
 
@@ -116,8 +117,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'category',
 				'options'   => [],
+				'classes'   => 'select2-medium-width',
 				'condition' => [
-					'post_type!' => '',
+					'post_type!' => [ '', 'current_query' ],
 				],
 			]
 		);
@@ -130,8 +132,10 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'   => '',
 				'multiple'  => true,
 				'options'   => [],
+				'classes'   => 'select2-medium-width',
 				'condition' => [
-					'taxonomy!' => '',
+					'taxonomy!'  => '',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -142,6 +146,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'label'     => __( 'Ordering', 'the7mk2' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -154,6 +161,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'options' => [
 					'asc'  => 'Ascending',
 					'desc' => 'Descending',
+				],
+				'condition' => [
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -172,6 +182,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 					'comment_count' => 'Comment count',
 					'menu_order'    => 'Menu order',
 					'rand'          => 'Rand',
+				],
+				'condition' => [
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1421,6 +1434,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'y',
 				'default'      => 'y',
+				'condition'    => [
+					'show_details' => 'y',
+				],
 			]
 		);
 
@@ -1533,6 +1549,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 					'js_more'         => '"Load more" button',
 					'js_lazy_loading' => 'Infinite scroll',
 				],
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1546,6 +1565,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'disabled',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1563,6 +1583,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default' => '',
 				'condition' => [
 					'loading_mode' => 'standard',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1577,6 +1598,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'js_pagination',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1590,6 +1612,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'js_pagination',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1604,6 +1627,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'js_more',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1617,6 +1641,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'js_more',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1631,6 +1656,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'js_lazy_loading',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1644,6 +1670,7 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'default'     => '',
 				'condition'   => [
 					'loading_mode' => 'js_lazy_loading',
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1660,6 +1687,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 0,
 				'min'         => 0,
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1670,8 +1700,20 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'y',
 				'default'      => '',
-				'condition'    => [
-					'loading_mode' => [ 'standard', 'js_pagination' ],
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'loading_mode',
+							'operator' => 'in',
+							'value' => [ 'standard', 'js_pagination' ],
+						],
+						[
+							'name' => 'post_type',
+							'operator' => '==',
+							'value' => 'current_query',
+						],
+					],
 				],
 			]
 		);
@@ -1697,8 +1739,20 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'selectors'   => [
 					'{{WRAPPER}} .paginator' => 'margin-top: {{SIZE}}{{UNIT}}',
 				],
-				'condition'   => [
-					'loading_mode' => [ 'standard', 'js_pagination', 'js_more' ],
+				'conditions' => [
+					'relation' => 'or',
+					'terms' => [
+						[
+							'name' => 'loading_mode',
+							'operator' => 'in',
+							'value' => [ 'standard', 'js_pagination', 'js_more' ],
+						],
+						[
+							'name' => 'post_type',
+							'operator' => '==',
+							'value' => 'current_query',
+						],
+					],
 				],
 			]
 		);
@@ -1710,6 +1764,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 			[
 				'label' => __( 'Categorization', 'the7mk2' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1720,6 +1777,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'y',
 				'default'      => '',
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1730,6 +1790,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'y',
 				'default'      => '',
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1740,6 +1803,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'y',
 				'default'      => '',
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1753,6 +1819,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 					'center' => 'Center',
 					'left'   => 'Left',
 					'right'  => 'Right',
+				],
+				'condition' => [
+					'post_type!' => 'current_query',
 				],
 			]
 		);
@@ -1778,6 +1847,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'selectors'   => [
 					'{{WRAPPER}} .filter' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1798,6 +1870,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'        => Controls_Manager::COLOR,
 				'alpha'       => true,
 				'default'     => '',
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1809,6 +1884,9 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 				'type'        => Controls_Manager::COLOR,
 				'alpha'       => true,
 				'default'     => '',
+				'condition' => [
+					'post_type!' => 'current_query',
+				],
 			]
 		);
 
@@ -1819,36 +1897,32 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 	 * Render widget.
 	 */
 	protected function render() {
+		$settings = $this->get_settings_for_display();
+
+		if ( $settings['post_type'] !== 'current_query' && ! post_type_exists( $settings['post_type'] ) ) {
+			echo the7_elementor_get_message_about_disabled_post_type();
+
+			return;
+		}
+
 		$has_img_preload_me_filter = has_filter( 'dt_get_thumb_img-args', 'presscore_add_preload_me_class_to_images' );
 		remove_filter( 'dt_get_thumb_img-args', 'presscore_add_preload_me_class_to_images' );
-
-		$settings = $this->get_settings_for_display();
 
 		$this->print_inline_css();
 
 		$loading_mode = $settings['loading_mode'];
-		$request      = null;
 
-		// Loop query.
-		$query_args = [
-			'posts_offset'   => $settings['posts_offset'],
-			'post_type'      => $settings['post_type'],
-			'order'          => $settings['order'],
-			'orderby'        => $settings['orderby'],
-			'posts_per_page' => $this->get_posts_per_page( $loading_mode, $settings ),
-		];
-
-		$query_builder = ( new The7_Query_Builder( $query_args ) )->from_terms(
-			$settings['taxonomy'],
-			$settings['terms']
-		);
-		if ( $loading_mode === 'standard' ) {
-			$request = new The7_Categorization_Request();
-			$query_builder->with_categorizaition( $request );
-			$query_builder->set_page( the7_get_paged_var() );
+		// Only standard pagination for current query.
+		if ( $settings['post_type'] === 'current_query' ) {
+			$loading_mode = 'standard';
 		}
 
-		$query = $query_builder->query();
+		$request = null;
+		if ( $settings['post_type'] !== 'current_query' && $loading_mode === 'standard' ) {
+			$request = new The7_Categorization_Request();
+		}
+
+		$query = $this->get_query( $request );
 
 		echo '<div ' . $this->container_class() . $this->get_container_data_atts() . '>';
 
@@ -2248,8 +2322,8 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 		}
 
 		if ( $settings['show_categories_filter'] ) {
-			$terms = (array) get_the_terms( $post->ID, $settings['taxonomy'] );
-			if ( $terms ) {
+			$terms = get_the_terms( $post->ID, $settings['taxonomy'] );
+			if ( is_array( $terms ) ) {
 				foreach ( $terms as $term ) {
 					$class[] = sanitize_html_class( 'category-' . $term->term_id );
 				}
@@ -2704,6 +2778,37 @@ class The7_Elementor_Elements_Widget extends The7_Elementor_Widget_Base {
 		}
 
 		return $posts_limit;
+	}
+
+	protected function get_query( $request ) {
+		$settings = $this->get_settings_for_display();
+
+		if ( $settings['post_type'] === 'current_query' ) {
+			return $GLOBALS['wp_query'];
+		}
+
+		$loading_mode = $settings['loading_mode'];
+
+		// Loop query.
+		$query_args = [
+			'posts_offset'   => $settings['posts_offset'],
+			'post_type'      => $settings['post_type'],
+			'order'          => $settings['order'],
+			'orderby'        => $settings['orderby'],
+			'posts_per_page' => $this->get_posts_per_page( $loading_mode, $settings ),
+		];
+
+		$query_builder = ( new The7_Query_Builder( $query_args ) )->from_terms(
+			$settings['taxonomy'],
+			$settings['terms']
+		);
+
+		if ( $loading_mode === 'standard' ) {
+			$query_builder->with_categorizaition( $request );
+			$query_builder->set_page( the7_get_paged_var() );
+		}
+
+		return $query_builder->query();
 	}
 
 	protected function get_posts_filter_terms( $taxonomy, $terms = [] ) {

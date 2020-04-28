@@ -175,6 +175,13 @@ class The7_Install {
 			'the7_update_8502_migrate_post_footer_source_for_elementor',
 			'the7_update_8502_db_version',
 		),
+		'8.6.0' => array(
+			'the7_update_860_db_version',
+		),
+		'8.7.0' => array(
+			'the7_update_purge_elementor_cache',
+			'the7_update_870_db_version',
+		),
 	);
 
     public static function init() {
@@ -383,6 +390,7 @@ class The7_Install {
 			'8.0.0' => 'The7_DB_Patch_080000',
 			'8.1.0' => 'The7_DB_Patch_080100',
 			'8.2.0' => 'The7_DB_Patch_080200',
+			'8.6.0' => 'The7_DB_Patch_080600',
 		);
 
 		$update_options = false;

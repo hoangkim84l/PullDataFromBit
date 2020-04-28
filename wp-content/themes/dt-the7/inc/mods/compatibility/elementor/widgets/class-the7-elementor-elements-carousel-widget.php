@@ -99,6 +99,7 @@ class The7_Elementor_Elements_Carousel_Widget extends The7_Elementor_Widget_Base
 				'type'    => Controls_Manager::SELECT2,
 				'default' => 'post',
 				'options' => the7_elementor_elements_widget_post_types(),
+				'classes' => 'select2-medium-width',
 			]
 		);
 
@@ -109,6 +110,7 @@ class The7_Elementor_Elements_Carousel_Widget extends The7_Elementor_Widget_Base
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'category',
 				'options'   => [],
+				'classes'   => 'select2-medium-width',
 				'condition' => [
 					'post_type!' => '',
 				],
@@ -123,6 +125,7 @@ class The7_Elementor_Elements_Carousel_Widget extends The7_Elementor_Widget_Base
 				'default'   => '',
 				'multiple'  => true,
 				'options'   => [],
+				'classes'   => 'select2-medium-width',
 				'condition' => [
 					'taxonomy!' => '',
 				],
@@ -2440,10 +2443,16 @@ class The7_Elementor_Elements_Carousel_Widget extends The7_Elementor_Widget_Base
 	 * Render widget.
 	 */
 	protected function render() {
+		$settings = $this->get_settings_for_display();
+
+		if ( $settings['post_type'] !== 'current_query' && ! post_type_exists( $settings['post_type'] ) ) {
+			echo the7_elementor_get_message_about_disabled_post_type();
+
+			return;
+		}
+
 		$has_img_preload_me_filter = has_filter( 'dt_get_thumb_img-args', 'presscore_add_preload_me_class_to_images' );
 		remove_filter( 'dt_get_thumb_img-args', 'presscore_add_preload_me_class_to_images' );
-
-		$settings = $this->get_settings_for_display();
 
 		$this->print_inline_css();
 

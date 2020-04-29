@@ -135,3 +135,15 @@ input:focus {
     display: inline;
     float: left;
 }
+
+
+/*Custom homepage*/
+
+.product-block .product.woocommerce.add_to_cart_inline {
+    border: 0px solid #ccc !important;
+    padding: 12px 0 !important;
+}
+
+.product-block .woocommerce-Price-amount.amount {
+    margin: 0px 10px 0px 40px;
+}

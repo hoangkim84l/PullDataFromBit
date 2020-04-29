@@ -18,8 +18,8 @@ Template: dt-the7
 .main-nav>li:not(.wpml-ls-item)>a .menu-text:hover,
 .main-nav>li:not(.wpml-ls-item)>a .menu-text:active {
     font-weight: bold;
-    border-bottom: 2px solid green;
-    padding-bottom: 2px;
+    text-decoration: underline green;
+    line-height: 15px
 }
 
 

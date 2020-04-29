@@ -22,6 +22,12 @@ Template: dt-the7
     line-height: 15px
 }
 
+li.current-menu-item a .menu-text {
+    font-weight: bold;
+    padding-bottom: 1px;
+    border-bottom: 2px solid green;
+}
+
 
 /*Custom footer*/
 

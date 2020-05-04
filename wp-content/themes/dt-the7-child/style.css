@@ -18,14 +18,14 @@ Template: dt-the7
 .main-nav>li:not(.wpml-ls-item)>a .menu-text:hover,
 .main-nav>li:not(.wpml-ls-item)>a .menu-text:active {
     font-weight: bold;
-    text-decoration: underline green;
+    text-decoration: underline #42beb5;
     line-height: 15px
 }
 
 li.current-menu-item a .menu-text {
     font-weight: bold;
     padding-bottom: 1px;
-    border-bottom: 2px solid green;
+    border-bottom: 2px solid #42beb5;
 }
 
 
@@ -64,7 +64,7 @@ li.current-menu-item a .menu-text {
 }
 
 .widgetlinks li a:hover {
-    color: #309B42 !important;
+    color: #42beb5 !important;
 }
 
 .textwidget .form-group {
@@ -78,7 +78,7 @@ li.current-menu-item a .menu-text {
 
 input:focus {
     outline: none !important;
-    border-color: #309B42;
+    border-color: #42beb5;
 }
 
 .textwidget .btn.btn-default {
@@ -91,7 +91,7 @@ input:focus {
     line-height: 32px;
     height: 31px;
     padding: 0 10px;
-    background-color: #309B42;
+    background-color: #42beb5;
     border: unset;
 }
 
@@ -108,7 +108,7 @@ input:focus {
 }
 
 .textwidget img.size-mediums:hover {
-    background-color: #309B42;
+    background-color: #42beb5;
 }
 
 #bottom-bar {
@@ -152,4 +152,16 @@ input:focus {
 
 .product-block .woocommerce-Price-amount.amount {
     margin: 0px 10px 0px 40px;
+}
+
+
+/*chat plugin*/
+
+.chaty-widget.desktop_active.mobile_active.none-widget-show {
+    bottom: 70px !important;
+    right: 10px !important;
+}
+
+.scroll-top {
+    display: none;
 }

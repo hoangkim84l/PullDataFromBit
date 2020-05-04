@@ -1,0 +1,140 @@
+.file-input{
+    width: 40px;
+    height: 44px;
+    display: block;
+    position: relative;
+    input[type=file] {
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        min-height: 100%;
+        text-align: right;
+        opacity: 0;
+        background: none repeat scroll 0 0 transparent;
+        cursor: pointer;
+        display: block;
+        position: absolute;
+    }
+}
+.form-group{
+    position: relative;
+    &:hover{
+        :not(.file-input-new){
+            .file-browse{
+                display: block;
+                z-index: 10;
+                .icon-upload{
+                    background: rgba(0, 0, 0, .5);
+                }
+            }
+        }
+    }
+}
+.kv-file-content{
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 100%;
+    text-align: center;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    &:after{
+        //content: '';
+        //background: rgba(0, 0, 0, .7);
+        //display: block;
+        //width: 100%;
+        //height: 100%;
+        //left: 0;
+        //top: 0;
+        //position: absolute;
+    }
+    img{
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+.file-footer-caption{
+    display: none;
+}
+.file-footer-caption{
+    display: none;
+}
+.file-actions{
+    display: none;
+}
+.file-drop-zone-title{
+    display: none;
+}
+.btn-file{
+    overflow: hidden;
+    position: relative;
+}
+.file-preview{
+    position: absolute;
+}
+.file-preview-thumbnails{
+    width: 54px;
+    height: 54px;
+    //background: #a886cd;
+    border-radius: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.file-thumbnail-footer{
+    //display: none;
+}
+.file-preview-status{
+    display: none;
+}
+.file-preview-frame{
+    position: absolute;
+    left: 0;
+    top:0;
+    right: 0;
+    z-index: 10;
+    &.file-preview-initial{
+        z-index: 0;
+    }
+}
+
+.file-browse{
+    display: none;
+    span{
+        display: none;
+    }
+}
+.file-input-new{
+    .file-browse{
+        display: block;
+        span{
+            display: block;
+            color:@color_1;
+            text-decoration: underline;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        &:hover{
+            span{
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .kv-file-content{
+        width: 54px;
+        height: 54px;
+    }
+    .file-input{
+        width: 54px;
+        height: 60px;
+    }
+
+}

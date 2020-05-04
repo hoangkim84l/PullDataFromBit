@@ -12,20 +12,27 @@ Template: dt-the7
 /*Custom header*/
 
 .masthead.inline-header.right.full-height {
-    background-color: #b8d9be !important;
+    background-color: #42beb5 !important;
 }
 
 .main-nav>li:not(.wpml-ls-item)>a .menu-text:hover,
 .main-nav>li:not(.wpml-ls-item)>a .menu-text:active {
     font-weight: bold;
-    text-decoration: underline #42beb5;
+    text-decoration: underline green;
     line-height: 15px
 }
 
 li.current-menu-item a .menu-text {
     font-weight: bold;
     padding-bottom: 1px;
-    border-bottom: 2px solid #42beb5;
+    border-bottom: 2px solid #000000;
+}
+
+.branding,
+.logo-box {
+    position: relative;
+    margin: 0 auto;
+    left: -300px;
 }
 
 
@@ -164,4 +171,10 @@ input:focus {
 
 .scroll-top {
     display: none;
+}
+
+.custom-font-body>*,
+.custom-font-body .uvc-sub-heading,
+.custom-font-body p {
+    font-size: 18px !important;
 }

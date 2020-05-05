@@ -70,6 +70,10 @@
     padding-right: 0;
 }
 
+.woobt-products .woobt-product .woobt-title .woovr-variation-image, .woobt-products .woobt-product .woobt-title .woovr-variation-price {
+    display: none !important;
+}
+
 .woobt-products .woobt-product .woobt-quantity {
     text-align: right;
 }

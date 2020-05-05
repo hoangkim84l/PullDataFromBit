@@ -3,7 +3,7 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, woo, frequently, upsells, related, bought, together, wpc
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 5.4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -78,6 +78,13 @@ Visit [plugin documentation website](https://wpclever.net?utm_source=doc&utm_med
 4. When adding/editing the product you can choose "Bought Together" tab then add some products with the new price
 
 == Changelog ==
+
+= 3.0.2 =
+* Fixed: Sold individually
+
+= 3.0.1 =
+* Fixed: Position on variable product
+* Fixed: Compatible with WPC Variations Radio Buttons
 
 = 3.0.0 =
 * Note: PLEASE CONSIDER BEFORE UPDATING THIS VERSION

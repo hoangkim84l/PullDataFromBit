@@ -178,3 +178,15 @@ input:focus {
 .custom-font-body p {
     font-size: 18px !important;
 }
+
+
+/*Search*/
+
+.popup-search .submit i,
+.overlay-search .submit i,
+.header-bar .popup-search .searchform .submit>span,
+.header-bar .overlay-search .searchform .submit>span,
+.overlay-search .searchform .submit>span,
+.popup-search .searchform .submit>span {
+    font-size: 14px !important;
+}

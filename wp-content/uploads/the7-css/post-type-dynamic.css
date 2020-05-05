@@ -1,11 +1,11 @@
 .accent-bg-mixin {
   color: #fff;
-  background-color: #1ebbf0;
+  background-color: #42beb5;
 }
 .accent-gradient .accent-bg-mixin {
-  background: #1ebbf0;
-  background: -webkit-linear-gradient(135deg, #1ebbf0 30%, #39dfaa 100%);
-  background: linear-gradient(135deg, #1ebbf0 30%, #39dfaa 100%);
+  background: #42beb5;
+  background: -webkit-linear-gradient();
+  background: linear-gradient();
 }
 .solid-bg-mixin {
   background-color: #f7f7f7;
@@ -90,17 +90,17 @@
 .dt-team-shortcode .team-author p {
   font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
-  color: #1ebbf0;
+  color: #42beb5;
 }
 .accent-gradient .dt-team-shortcode .team-author p {
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
+  background: -webkit-linear-gradient();
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 @media all and (-ms-high-contrast: none) {
   .accent-gradient .dt-team-shortcode .team-author p {
-    color: #1ebbf0;
+    color: #42beb5;
   }
 }
 .dt-mega-parent .sidebar-content .widget .team-author p {
@@ -131,21 +131,21 @@
   font-size: 14px;
   line-height: 25px;
   font-weight: normal;
-  color: #1ebbf0;
+  color: #42beb5;
 }
 .accent-gradient .dt-testimonials-shortcode .testimonial-vcard .text-secondary {
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
+  background: -webkit-linear-gradient();
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 @media all and (-ms-high-contrast: none) {
   .accent-gradient .dt-testimonials-shortcode .testimonial-vcard .text-secondary {
-    color: #1ebbf0;
+    color: #42beb5;
   }
 }
 .dt-testimonials-shortcode .more-link {
-  color: #1ebbf0;
+  color: #42beb5;
 }
 .testimonial-vcard .text-primary {
   color: #333333;
@@ -183,17 +183,17 @@
   font: normal  normal 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
 }
 .content .team-author-name a:hover {
-  color: #1ebbf0;
+  color: #42beb5;
 }
 .accent-gradient .content .team-author-name a:hover {
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
+  background: -webkit-linear-gradient();
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
 }
 @media all and (-ms-high-contrast: none) {
   .accent-gradient .content .team-author-name a:hover {
-    color: #1ebbf0;
+    color: #42beb5;
   }
 }
 .widget .team-author-name,
@@ -273,7 +273,7 @@
 }
 #main-slideshow .progress-spinner-left,
 #main-slideshow .progress-spinner-right {
-  border-color: #1ebbf0 !important;
+  border-color: #42beb5 !important;
 }
 .slider-content .owl-dot:not(.active):not(:hover),
 .slider-content .owl-dot:not(.active):hover {

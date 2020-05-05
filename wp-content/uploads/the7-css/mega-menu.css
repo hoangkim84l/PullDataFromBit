@@ -423,28 +423,10 @@
   color: #333333;
 }
 .main-nav .sub-nav > li.dt-mega-parent:not(.act):not(.wpml-ls-item) > a:not(.not-clickable-item):hover .menu-text {
-  color: #1ebbf0;
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@media all and (-ms-high-contrast: none) {
-  .main-nav .sub-nav > li.dt-mega-parent:not(.act):not(.wpml-ls-item) > a:not(.not-clickable-item):hover .menu-text {
-    color: #1ebbf0;
-  }
+  color: #42beb5;
 }
 .main-nav .sub-nav > li.dt-mega-parent.current-menu-item > a .menu-text {
-  color: #1ebbf0;
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@media all and (-ms-high-contrast: none) {
-  .main-nav .sub-nav > li.dt-mega-parent.current-menu-item > a .menu-text {
-    color: #1ebbf0;
-  }
+  color: #42beb5;
 }
 .main-nav .sub-nav > li.dt-mega-parent > a .subtitle-text {
   font:  normal  13px / 17px "Roboto", Helvetica, Arial, Verdana, sans-serif;
@@ -462,10 +444,10 @@
   color: #333333;
 }
 .main-nav .dt-mega-menu .sub-nav .dt-mega-parent:not(.current-menu-item) > a:not(.not-clickable-item):hover i {
-  color: #1ebbf0;
+  color: #42beb5;
 }
 .main-nav .dt-mega-menu .sub-nav .dt-mega-parent.current-menu-item > a i {
-  color: #1ebbf0;
+  color: #42beb5;
 }
 .sub-nav .menu-subtitle,
 .sub-nav li.act > a:hover .menu-subtitle {
@@ -506,20 +488,7 @@
 }
 .dt-mega-parent .sidebar-content .widget a:not(.button):not(.dt-btn):hover,
 .dt-mega-parent .sidebar-content .widget a:not(.button):not(.dt-btn):hover * {
-  color: #1ebbf0;
-}
-.accent-gradient .dt-mega-parent .sidebar-content .widget a:not(.button):not(.dt-btn):hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget a:not(.button):not(.dt-btn):hover * {
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@media all and (-ms-high-contrast: none) {
-  .accent-gradient .dt-mega-parent .sidebar-content .widget a:not(.button):not(.dt-btn):hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget a:not(.button):not(.dt-btn):hover * {
-    color: #1ebbf0;
-  }
+  color: #42beb5;
 }
 .mobile-main-nav > li .dt-mega-menu-wrap,
 .mobile-main-nav > li .dt-mega-menu-wrap > .sub-nav .sub-nav {
@@ -533,7 +502,7 @@
   background-color: rgba(51,51,51,0.15);
 }
 .mega-menu-widgets .soc-ico a:after {
-  background-color: #1ebbf0;
+  background-color: #42beb5;
   box-shadow: none;
 }
 .dt-mega-parent .sidebar-content .widget .soc-ico a:not(:hover) .soc-font-icon {
@@ -574,58 +543,7 @@
 .dt-mega-parent .sidebar-content .widget .tagcloud a:hover,
 .dt-mega-parent .sidebar-content .widget .widget_nav_menu a:hover,
 .dt-mega-parent .sidebar-content .widget a.rsswidget:hover {
-  color: #1ebbf0;
-}
-.accent-gradient .dt-mega-parent .sidebar-content .widget .menu .current-menu-parent > a,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .menu .current-menu-item > a,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .custom-nav > li > a:hover span,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .custom-nav li.act > a span,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .custom-nav > li > ul a:hover span,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .st-accordion li > a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .st-accordion > ul li > a:hover *,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget .custom-categories a:hover span.item-name,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_categories li a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_meta a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .blogroll a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_archive li a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_recent_entries a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_links a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_pages a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .recent-posts a:not(.post-rollover):hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .items-grid .post-content > a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget #wp-calendar td a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .tagcloud a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget .widget_nav_menu a:hover,
-.accent-gradient .dt-mega-parent .sidebar-content .widget a.rsswidget:hover {
-  background: -webkit-linear-gradient(left, #1ebbf0 30%, #39dfaa 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@media all and (-ms-high-contrast: none) {
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .menu .current-menu-parent > a,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .menu .current-menu-item > a,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .custom-nav > li > a:hover span,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .custom-nav li.act > a span,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .custom-nav > li > ul a:hover span,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .st-accordion li > a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .st-accordion > ul li > a:hover *,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget .custom-categories a:hover span.item-name,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_categories li a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_meta a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .blogroll a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_archive li a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_recent_entries a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_links a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_pages a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .recent-posts a:not(.post-rollover):hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .items-grid .post-content > a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget #wp-calendar td a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .tagcloud a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget .widget_nav_menu a:hover,
-  .accent-gradient .dt-mega-parent .sidebar-content .widget a.rsswidget:hover {
-    color: #1ebbf0;
-  }
+  color: #42beb5;
 }
 .dt-mega-parent .sidebar-content .widget .custom-menu a:after {
   color: rgba(51,51,51,0.5);

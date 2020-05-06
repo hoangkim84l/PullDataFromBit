@@ -75,17 +75,20 @@ li.current-menu-item a .menu-text {
 }
 
 .textwidget .form-group {
-    width: 70%;
+    width: 100%;
     float: left;
 }
 
 .textwidget .form-group .form-control {
     height: 31px;
+    width: 70%;
+    float: left;
 }
 
-input:focus {
+input:focus,
+.textwidget .form-group .form-control input:focus {
     outline: none !important;
-    border-color: #42beb5;
+    border-color: #42beb5 !important;
 }
 
 .textwidget .btn.btn-default {
@@ -189,4 +192,11 @@ input:focus {
 .overlay-search .searchform .submit>span,
 .popup-search .searchform .submit>span {
     font-size: 14px !important;
+}
+
+
+/*cart*/
+
+.wc-ico-cart>.counter {
+    font-size: 11px !important;
 }

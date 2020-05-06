@@ -2282,16 +2282,13 @@ form.lost_reset_password label .required,
   -ms-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  font:   20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .wc-ico-cart i {
   margin-right: 5px;
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
-}
-.header-bar .wc-ico-cart i {
-  margin-right: 7.1428571428571px;
 }
 .branding .wc-ico-cart {
   font:   20px / 24px "Open Sans", Helvetica, Arial, Verdana, sans-serif;
@@ -2343,7 +2340,7 @@ form.lost_reset_password label .required,
   color: #000000;
 }
 a.wc-ico-cart:hover {
-  font:   20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
   opacity: 0.7;
 }
@@ -2374,13 +2371,13 @@ a.wc-ico-cart:hover {
   display: inline-block;
   margin-left: 10px;
   padding: 1px;
-  min-width: 14px;
-  min-height: 14px;
+  min-width: 12px;
+  min-height: 12px;
   background-color: #42beb5;
   text-align: center;
-  font-size: 8px;
+  font-size: 6px;
   font-family: Tahoma, Arial, sans-serif !important;
-  line-height: 14px;
+  line-height: 12px;
   letter-spacing: normal;
   font-weight: normal;
   font-style: normal;
@@ -2424,7 +2421,7 @@ a.wc-ico-cart:hover {
 }
 .rectangular-counter-style .wc-ico-cart > .counter {
   padding: 0 2px 0 1px;
-  min-width: 18px;
+  min-width: 16px;
   border-radius: 2px;
   box-sizing: border-box;
 }
@@ -2457,7 +2454,7 @@ a.wc-ico-cart:hover {
 }
 .wc-ico-cart > .counter,
 .wc-ico-cart:hover > .counter {
-  color: #ffffff;
+  color: #0a0a0a;
 }
 .light-preset-color.masthead:not(#phantom):not(.sticky-on):not(.sticky-mobile-on) .wc-ico-cart > .counter,
 .light-preset-color.masthead:not(#phantom):not(.sticky-on):not(.sticky-mobile-on) .wc-ico-cart:hover > .counter {

@@ -1360,10 +1360,6 @@ blockquote,
 .popup-search .search-icon {
   right: 22px;
 }
-.header-bar .popup-search .searchform .submit > span,
-.header-bar .overlay-search .searchform .submit > span {
-  margin-left: 7.1428571428571px;
-}
 .branding .popup-search .searchform .submit > span,
 .branding .overlay-search .searchform .submit > span {
   margin-left: 7.1428571428571px;
@@ -1378,7 +1374,7 @@ blockquote,
 }
 .popup-search .submit i,
 .overlay-search .submit i {
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
 }
 .branding .popup-search .submit i,
@@ -1429,7 +1425,7 @@ blockquote,
   color: #333333;
 }
 .mini-search .submit {
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .mini-search .submit:hover {
@@ -1496,17 +1492,13 @@ blockquote,
 }
 .mini-login,
 .mini-login .submit {
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .mini-login i,
 .mini-login .submit i {
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
-}
-.header-bar .mini-login i,
-.header-bar .mini-login .submit i {
-  margin-right: 7.1428571428571px;
 }
 .branding .mini-login,
 .branding .mini-login .submit {
@@ -1569,15 +1561,12 @@ a.mini-contacts:hover {
 }
 .mini-contacts {
   text-decoration: none;
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .mini-contacts i {
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
-}
-.header-bar .mini-contacts i {
-  margin-right: 7.1428571428571px;
 }
 .branding .mini-contacts {
   font:    20px / 24px "Open Sans", Helvetica, Arial, Verdana, sans-serif;
@@ -1720,7 +1709,7 @@ a.mini-contacts:hover {
   background: none !important;
 }
 .text-area {
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .branding .text-area {
@@ -1764,7 +1753,7 @@ a.mini-contacts:hover {
 }
 .masthead .menu-select,
 .masthead .mini-nav > ul:not(.mini-sub-nav) > li > a {
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .masthead .branding .menu-select,
@@ -1798,7 +1787,7 @@ a.mini-contacts:hover {
   color: 222222 !important;
 }
 .masthead .mini-nav .customSelectInner {
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   color: #000000;
 }
 .branding .mini-nav .customSelectInner {
@@ -1845,14 +1834,8 @@ a.mini-contacts:hover {
 .list-type-menu.mini-nav > ul > li > a i,
 .list-type-menu-first-switch.mini-nav > ul > li > a i,
 .list-type-menu-second-switch.mini-nav > ul > li > a i {
-  font-size: 16px;
+  font-size: 14px;
   color: #000000;
-}
-.header-bar .mini-nav .customSelectInner i,
-.header-bar .list-type-menu.mini-nav > ul > li > a i,
-.header-bar .list-type-menu-first-switch.mini-nav > ul > li > a i,
-.header-bar .list-type-menu-second-switch.mini-nav > ul > li > a i {
-  margin-right: 7.1428571428571px;
 }
 .branding .mini-nav .customSelectInner i,
 .branding .list-type-menu.mini-nav > ul > li > a i,
@@ -7594,7 +7577,7 @@ h3.gform_title,
   background: linear-gradient() !important;
 }
 .mini-wpml {
-  font:  normal  20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  14px / 18px "Roboto", Helvetica, Arial, Verdana, sans-serif;
 }
 .branding .mini-wpml,
 .mixed-header .mini-wpml,

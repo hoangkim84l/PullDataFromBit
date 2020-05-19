@@ -1,9 +1,9 @@
 .accent-bg-mixin {
   color: #fff;
-  background-color: #309b42;
+  background-color: #3d914b;
 }
 .accent-gradient .accent-bg-mixin {
-  background: #309b42;
+  background: #3d914b;
   background: -webkit-linear-gradient();
   background: linear-gradient();
 }
@@ -11,13 +11,13 @@
   background-color: #f7f7f7;
 }
 .header-color {
-  color: #333333;
+  color: #3D914B;
 }
 .dt-mega-parent .sidebar-content .widget .header-color {
   color: #333333;
 }
 #main .sidebar-content .header-color {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .header-color {
   color: #ffffff;
@@ -26,7 +26,7 @@
   color: #b4b5bb;
 }
 .sidebar-content .color-base-transparent {
-  color: rgba(133,134,140,0.5);
+  color: rgba(0,0,0,0.5);
 }
 .footer .color-base-transparent {
   color: rgba(51,51,51,0.5);
@@ -66,12 +66,12 @@
 .testimonial-item .testimonial-vcard .text-secondary,
 .testimonial-item .testimonial-vcard .text-primary,
 .testimonial-item .testimonial-vcard .text-primary * {
-  color: #333333;
+  color: #3D914B;
 }
 .sidebar-content .testimonial-item .testimonial-vcard .text-secondary,
 .sidebar-content .testimonial-item .testimonial-vcard .text-primary,
 .sidebar-content .testimonial-item .testimonial-vcard .text-primary * {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .testimonial-item .testimonial-vcard .text-secondary,
 .footer .testimonial-item .testimonial-vcard .text-primary,
@@ -83,14 +83,14 @@
   text-decoration: underline;
 }
 .team-author p {
-  color: #333333;
+  color: #3D914B;
   font:   bold 14px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .dt-team-shortcode .team-author p {
   font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
-  color: #309b42;
+  color: #3d914b;
 }
 .accent-gradient .dt-team-shortcode .team-author p {
   background: -webkit-linear-gradient();
@@ -100,20 +100,20 @@
 }
 @media all and (-ms-high-contrast: none) {
   .accent-gradient .dt-team-shortcode .team-author p {
-    color: #309b42;
+    color: #3d914b;
   }
 }
 .dt-mega-parent .sidebar-content .widget .team-author p {
   color: #333333;
 }
 .sidebar-content .team-author p {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .team-author p {
   color: #ffffff;
 }
 .testimonial-vcard .text-secondary {
-  color: #333333;
+  color: #3D914B;
   font-size: 13px;
   line-height: 23px;
   font-weight: bold;
@@ -122,7 +122,7 @@
   color: #333333;
 }
 #main .sidebar-content .testimonial-vcard .text-secondary {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .testimonial-vcard .text-secondary {
   color: #ffffff;
@@ -131,7 +131,7 @@
   font-size: 14px;
   line-height: 25px;
   font-weight: normal;
-  color: #309b42;
+  color: #3d914b;
 }
 .accent-gradient .dt-testimonials-shortcode .testimonial-vcard .text-secondary {
   background: -webkit-linear-gradient();
@@ -141,14 +141,14 @@
 }
 @media all and (-ms-high-contrast: none) {
   .accent-gradient .dt-testimonials-shortcode .testimonial-vcard .text-secondary {
-    color: #309b42;
+    color: #3d914b;
   }
 }
 .dt-testimonials-shortcode .more-link {
-  color: #309b42;
+  color: #3d914b;
 }
 .testimonial-vcard .text-primary {
-  color: #333333;
+  color: #3D914B;
   font-size: 14px;
   line-height: 25px;
   font-weight: bold;
@@ -157,19 +157,19 @@
   color: #333333;
 }
 #main .sidebar-content .testimonial-vcard .text-primary {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .testimonial-vcard .text-primary {
   color: #ffffff;
 }
 .testimonial-vcard .text-primary * {
-  color: #333333;
+  color: #3D914B;
 }
 .dt-mega-parent .sidebar-content .widget .testimonial-vcard .text-primary * {
   color: #333333;
 }
 #main .sidebar-content .testimonial-vcard .text-primary * {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .testimonial-vcard .text-primary * {
   color: #ffffff;
@@ -179,11 +179,11 @@
 }
 .team-author-name,
 .team-author-name a {
-  color: #333333;
+  color: #3D914B;
   font: normal  normal 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
 }
 .content .team-author-name a:hover {
-  color: #309b42;
+  color: #3d914b;
 }
 .accent-gradient .content .team-author-name a:hover {
   background: -webkit-linear-gradient();
@@ -193,14 +193,14 @@
 }
 @media all and (-ms-high-contrast: none) {
   .accent-gradient .content .team-author-name a:hover {
-    color: #309b42;
+    color: #3d914b;
   }
 }
 .widget .team-author-name,
 .widget .team-author-name a {
   font:   bold 16px / 26px "Roboto", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
-  color: #333333;
+  color: #3D914B;
 }
 .dt-mega-parent .sidebar-content .widget .widget .team-author-name,
 .dt-mega-parent .sidebar-content .widget .widget .team-author-name a {
@@ -208,7 +208,7 @@
 }
 #main .sidebar-content .widget .team-author-name,
 #main .sidebar-content .widget .team-author-name a {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .widget .team-author-name,
 .footer .widget .team-author-name a {
@@ -216,7 +216,7 @@
 }
 .team-author-name,
 .team-author-name a {
-  color: #333333;
+  color: #3D914B;
 }
 .dt-mega-parent .sidebar-content .widget .team-author-name,
 .dt-mega-parent .sidebar-content .widget .team-author-name a {
@@ -224,7 +224,7 @@
 }
 #main .sidebar-content .team-author-name,
 #main .sidebar-content .team-author-name a {
-  color: #333333;
+  color: #3D914B;
 }
 .footer .team-author-name,
 .footer .team-author-name a {
@@ -273,16 +273,16 @@
 }
 #main-slideshow .progress-spinner-left,
 #main-slideshow .progress-spinner-right {
-  border-color: #309b42 !important;
+  border-color: #3d914b !important;
 }
 .slider-content .owl-dot:not(.active):not(:hover),
 .slider-content .owl-dot:not(.active):hover {
-  -webkit-box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
-  box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
+  -webkit-box-shadow: inset 0 0 0 2px rgba(0,0,0,0.35);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.35);
 }
 .slider-content .owl-dot.active {
-  -webkit-box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
-  box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
+  -webkit-box-shadow: inset 0 0 0 20px rgba(0,0,0,0.35);
+  box-shadow: inset 0 0 0 20px rgba(0,0,0,0.35);
 }
 .dt-mega-parent .sidebar-content .widget .slider-content .owl-dot:not(.active):not(:hover),
 .dt-mega-parent .sidebar-content .widget .slider-content .owl-dot:not(.active):hover {
@@ -297,13 +297,13 @@
 .sidebar .slider-content .owl-dot:not(.active):hover,
 .sidebar-content .slider-content .owl-dot:not(.active):not(:hover),
 .sidebar-content .slider-content .owl-dot:not(.active):hover {
-  -webkit-box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
-  box-shadow: inset 0 0 0 2px rgba(133,134,140,0.35);
+  -webkit-box-shadow: inset 0 0 0 2px rgba(0,0,0,0.35);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.35);
 }
 .sidebar .slider-content .owl-dot.active,
 .sidebar-content .slider-content .owl-dot.active {
-  -webkit-box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
-  box-shadow: inset 0 0 0 20px rgba(133,134,140,0.35);
+  -webkit-box-shadow: inset 0 0 0 20px rgba(0,0,0,0.35);
+  box-shadow: inset 0 0 0 20px rgba(0,0,0,0.35);
 }
 .footer .slider-content .owl-dot:not(.active):not(:hover),
 .footer .slider-content .owl-dot:not(.active):hover {

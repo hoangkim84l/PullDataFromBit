@@ -40,3 +40,24 @@ function boot_session() {
 	session_start();
 }
 add_action('wp_loaded','boot_session');
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 ); 
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering',30 );
+add_action('init','delay_remove');
+function delay_remove() {
+    remove_action( 'woocommerce_after_shop_loop', 'woocommerce_catalog_ordering', 10 );
+    remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 10 );
+}
+
+/**
+ * Change the default state and country on the checkout page
+ */
+add_filter( 'default_checkout_billing_country', 'change_default_checkout_country' );
+add_filter( 'default_checkout_billing_state', 'change_default_checkout_state' );
+
+function change_default_checkout_country() {
+  return 'KE'; // country code
+}
+
+function change_default_checkout_state() {
+  return 'KE'; // state code
+}

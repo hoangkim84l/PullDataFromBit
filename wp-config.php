@@ -20,7 +20,7 @@
 ini_set("memory_limit", -1);
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'mpaygwebstore_v2' );
+define( 'DB_NAME', 'mpaygwebstore_v3' );
 // define( 'DB_NAME', 'mpayg' );
 
 /** MySQL database username */

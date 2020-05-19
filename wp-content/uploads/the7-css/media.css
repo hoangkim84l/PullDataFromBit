@@ -1560,7 +1560,7 @@
     right: -40px;
     width: 40px;
     height: 40px;
-    background-color: #309b42;
+    background-color: #3d914b;
     color: #fff;
     transition: left 0.3s;
     z-index: 9996;
@@ -1572,7 +1572,7 @@
     border-top-left-radius: 0;
   }
   .accent-gradient .wc-sidebar-toggle {
-    background: #309b42;
+    background: #3d914b;
     background: -webkit-linear-gradient();
     background: linear-gradient();
   }

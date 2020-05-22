@@ -84,11 +84,11 @@
 }
 .team-author p {
   color: #3D914B;
-  font:   bold 14px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 14px / 24px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .dt-team-shortcode .team-author p {
-  font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:    15px / 27px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
   color: #3d914b;
 }
@@ -175,12 +175,12 @@
   color: #ffffff;
 }
 .dt-testimonials-shortcode .testimonial-vcard .text-primary {
-  font: normal  normal 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font: normal  normal 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 .team-author-name,
 .team-author-name a {
   color: #3D914B;
-  font: normal  normal 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font: normal  normal 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 .content .team-author-name a:hover {
   color: #3d914b;
@@ -198,7 +198,7 @@
 }
 .widget .team-author-name,
 .widget .team-author-name a {
-  font:   bold 16px / 26px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 16px / 26px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
   color: #3D914B;
 }
@@ -231,44 +231,44 @@
   color: #ffffff;
 }
 .rsTitle {
-  font:   bold 44px / 54px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 44px / 54px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .rsDesc {
-  font:   bold 34px / 44px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 34px / 44px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 @media screen and (max-width: 1200px) {
   .rsTitle {
-    font:   bold 34px / 44px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:   bold 34px / 44px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
   .rsDesc {
-    font:   bold 24px / 34px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:   bold 24px / 34px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
 }
 @media screen and (max-width: 1024px) {
   .rsTitle {
-    font:   bold 24px / 34px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:   bold 24px / 34px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
   .rsDesc {
-    font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
 }
 @media screen and (max-width: 800px) {
   .rsTitle {
-    font:   bold 16px / 26px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:   bold 16px / 26px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
   .rsDesc {
-    font:    14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:    14px / 25px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
 }
 @media screen and (max-width: 320px) {
   .rsTitle {
-    font:    14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:    14px / 25px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
   .rsDesc {
     display: none !important;
-    font:    14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+    font:    14px / 25px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   }
 }
 #main-slideshow .progress-spinner-left,

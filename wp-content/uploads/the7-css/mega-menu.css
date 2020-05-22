@@ -418,7 +418,7 @@
   font-size: 15px;
 }
 .main-nav .sub-nav > li.dt-mega-parent > a .menu-text {
-  font:   bold 16px / 22px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 16px / 22px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
   color: #333333;
 }
@@ -429,7 +429,7 @@
   color: #3d914b;
 }
 .main-nav .sub-nav > li.dt-mega-parent > a .subtitle-text {
-  font:  normal  13px / 17px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:  normal  13px / 17px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: #333333;
 }
 .main-nav .sub-nav .mega-menu-img > i,

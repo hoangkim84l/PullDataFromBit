@@ -61,3 +61,8 @@ function change_default_checkout_country() {
 function change_default_checkout_state() {
   return 'KE'; // state code
 }
+add_filter('wp_mail_content_type','set_content_type');
+    function set_content_type($content_type){
+      return 'text/html';
+    }
+remove_action( 'woocommerce_no_products_found', 'wc_no_products_found' );

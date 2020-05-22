@@ -34,7 +34,7 @@ li.current-menu-item a .menu-text {
     font-size: 20px;
     line-height: 32px;
     letter-spacing: 0px;
-    color: #333333;
+    color: #3d914b;
     opacity: 1;
 }
 
@@ -47,7 +47,7 @@ li.current-menu-item a .menu-text {
     font-weight: 300;
     color: #333333;
     opacity: 1;
-    font: normal 17px / 28px "Open Sans", Helvetica, Arial, Verdana, sans-serif;
+    font: normal 17px / 28px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 
 .widgetlinks li a {
@@ -59,11 +59,12 @@ li.current-menu-item a .menu-text {
     font-weight: 300;
     color: #333333 !important;
     opacity: 1;
-    font: normal 17px / 28px "Open Sans", Helvetica, Arial, Verdana, sans-serif;
+    font: normal 17px / 28px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 
-.widgetlinks li a:hover {
-    color: #309B42 !important;
+.widgetlinks li a:hover,
+.widgetcontactus li a:hover {
+    color: #49A959 !important;
 }
 
 .textwidget .form-group {
@@ -80,7 +81,7 @@ li.current-menu-item a .menu-text {
 input:focus,
 .textwidget .form-group .form-control input:focus {
     outline: none !important;
-    border-color: #309B42 !important;
+    border-color: #49A959 !important;
 }
 
 .textwidget .btn.btn-default {
@@ -93,7 +94,7 @@ input:focus,
     line-height: 32px;
     height: 31px;
     padding: 0 10px;
-    background-color: #309B42;
+    background-color: #3D914B;
     border: unset;
 }
 
@@ -110,7 +111,7 @@ input:focus,
 }
 
 .textwidget img.size-mediums:hover {
-    background-color: #42beb5;
+    background-color: #49A959;
 }
 
 #bottom-bar {
@@ -128,7 +129,7 @@ input:focus,
     opacity: 1;
     width: 100%;
     text-align: center;
-    font: normal 17px / 28px "Open Sans", Helvetica, Arial, Verdana, sans-serif;
+    font: normal 17px / 28px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 
 .wf-float-right {
@@ -176,7 +177,12 @@ input:focus,
 .sticky-on .main-nav>li:not(.wpml-ls-item)>a .menu-text,
 #phantom .main-nav>li:not(.wpml-ls-item)>a .menu-text {
     font-size: 17px;
-    color: #000 !important;
+    color: #000;
+}
+
+.main-nav>li.act:not(.wpml-ls-item)>a .menu-text,
+.main-nav>li.act:not(.wpml-ls-item)>a .subtitle-text {
+    color: #3D914B;
 }
 
 

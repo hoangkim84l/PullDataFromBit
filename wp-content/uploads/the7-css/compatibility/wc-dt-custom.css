@@ -765,7 +765,7 @@ p.demo_store {
   flex: 1 0 auto;
   width: 33.333%;
   color: rgba(61,145,75,0.3);
-  font:   bold 24px / 34px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 24px / 34px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .checkout-page-title .checkout-breadcrumbs {
@@ -1571,11 +1571,11 @@ ul.product_list_widget li a,
 .woocommerce-cart-wrap .order-total .amount,
 .woocommerce-cart-wrap .cart_totals h2 {
   color: #3D914B;
-  font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .woocommerce-cart-wrap .update-cart-button input[type="submit"] {
-  font:   15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   15px / 27px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: #3D914B;
   font-size: 14px;
   line-height: 25px;
@@ -1684,7 +1684,7 @@ div:not(.wc-coupon-wrap):not(.wc-login-wrap):not(.woocommerce-MyAccount-content)
 div:not(.wc-coupon-wrap):not(.wc-login-wrap):not(.woocommerce-MyAccount-content) > .woocommerce-info .woocommerce-message-text,
 div:not(.wc-coupon-wrap):not(.wc-login-wrap):not(.woocommerce-MyAccount-content) > .woocommerce-info .woocommerce-info-text,
 div:not(.wc-coupon-wrap):not(.wc-login-wrap):not(.woocommerce-MyAccount-content) > .woocommerce-info .woocommerce-error-text {
-  font:   15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   15px / 27px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 #page div:not(.wc-coupon-wrap):not(.wc-login-wrap):not(.woocommerce-MyAccount-content) > .woocommerce-message,
 #page .woocommerce-error,
@@ -1736,7 +1736,7 @@ div:not(.wc-coupon-wrap):not(.wc-login-wrap):not(.woocommerce-MyAccount-content)
   color: #000000;
 }
 #ship-to-different-address {
-  font:    15px / 27px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:    15px / 27px "Nunito", Helvetica, Arial, Verdana, sans-serif;
 }
 .showcoupon,
 .showlogin {
@@ -1876,7 +1876,7 @@ form.lost_reset_password label .required,
 }
 .woocommerce-checkout-review-order .order-total .amount,
 .order_details .order-total .amount {
-  font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .woocommerce-order-downloads .download-product a {
@@ -1895,7 +1895,7 @@ form.lost_reset_password label .required,
 }
 .wc-bacs-bank-details-heading,
 .woocommerce-order-downloads__title {
-  font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 #shipping_method label,
@@ -2007,7 +2007,7 @@ form.lost_reset_password label .required,
   color: #000000;
 }
 .woocommerce-thankyou-order-details li .amount {
-  font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
   color: #3D914B;
 }
@@ -2023,12 +2023,12 @@ form.lost_reset_password label .required,
 .woocommerce-tabs .panel > h2,
 .related.products > h2,
 .cross-sells > h2 {
-  font:   bold 24px / 34px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 24px / 34px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .woocommerce-tabs #comments > h2,
 .woocommerce-Reviews #reply-title {
-  font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .product .related.products > h2:after,
@@ -2282,7 +2282,7 @@ form.lost_reset_password label .required,
   -ms-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  font:   20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   20px / 24px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: #aeaeae;
 }
 .wc-ico-cart i {
@@ -2314,7 +2314,7 @@ form.lost_reset_password label .required,
   margin-right: 7.1428571428571px;
 }
 .top-bar .wc-ico-cart {
-  font:   13px / 19px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   13px / 19px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .top-bar .wc-ico-cart {
@@ -2325,7 +2325,7 @@ form.lost_reset_password label .required,
   color: #ffffff;
 }
 .dt-mobile-header .wc-ico-cart {
-  font:   bold 15px / 19px "Roboto Condensed", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 15px / 19px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: ;
   color: #aeaeae;
 }
@@ -2335,7 +2335,7 @@ form.lost_reset_password label .required,
   margin-right: 5.3571428571429px;
 }
 .mobile-header-bar .mobile-mini-widgets .wc-ico-cart {
-  font:    13px / 17px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:    13px / 17px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: #aeaeae;
 }
 .mobile-header-bar .mobile-mini-widgets .wc-ico-cart i {
@@ -2343,7 +2343,7 @@ form.lost_reset_password label .required,
   color: #aeaeae;
 }
 a.wc-ico-cart:hover {
-  font:   20px / 24px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   20px / 24px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: #aeaeae;
   opacity: 0.7;
 }
@@ -2356,17 +2356,17 @@ a.wc-ico-cart:hover {
   color: #333333;
 }
 .top-bar a.wc-ico-cart:hover {
-  font:   13px / 19px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   13px / 19px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: rgba(255,255,255,0.7);
   color: #ffffff;
 }
 .dt-mobile-header a.wc-ico-cart:hover {
-  font:   bold 15px / 19px "Roboto Condensed", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 15px / 19px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: ;
   color: #aeaeae;
 }
 .mobile-header-bar .mobile-mini-widgets a.wc-ico-cart:hover {
-  font:    13px / 17px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:    13px / 17px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   color: #aeaeae;
 }
 .wc-ico-cart > .counter {
@@ -3474,7 +3474,7 @@ div.product div.summary .price:after {
 .product-category .woo-content-container > a h3,
 .product-category .woocom-list-content > a h3,
 #customer_login h2 {
-  font:   bold 20px / 30px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 20px / 30px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .product form.cart .button {
@@ -3596,7 +3596,7 @@ div.product div.summary .price:after {
 #reviews ol.commentlist .comment_container .woocommerce-review__author {
   display: block;
   margin-bottom: 5px;
-  font:   bold 16px / 26px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 16px / 26px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 #reviews ol.commentlist .comment_container .woocommerce-review__published-date {
@@ -3624,7 +3624,7 @@ div.product div.summary .price:after {
   display: none;
 }
 .wc-bacs-bank-details-account-name {
-  font:   bold 16px / 26px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 16px / 26px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
 }
 .product .upsells.products,
@@ -4856,7 +4856,7 @@ form.woocommerce-checkout .form-row#billing_address_1_field {
 }
 .shipping-calculator-button {
   position: relative;
-  font:   14px / 25px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   14px / 25px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   word-spacing: normal;
   text-decoration: none;
   color: #3d914b;
@@ -4946,7 +4946,7 @@ form .form-row textarea {
   border: none;
 }
 .woocommerce fieldset legend {
-  font:   bold 24px / 34px "Roboto", Helvetica, Arial, Verdana, sans-serif;
+  font:   bold 24px / 34px "Nunito", Helvetica, Arial, Verdana, sans-serif;
   text-transform: none;
   margin-bottom: 20px;
   color: #3D914B;

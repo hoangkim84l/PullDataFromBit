@@ -21,7 +21,7 @@ function vc_utm() {
 
   global $wpdb;
 
-  $utms  = '?utm_source=MailChimp';
+  $utms  = '?utm_source=ChimpmaticLite';
   $utms .= '&utm_campaign=w' . get_bloginfo( 'version' ) . '-' . mce_difer_dateact_date() . 'c' . WPCF7_VERSION . ( defined( 'WPLANG' ) && WPLANG ? WPLANG : 'en_US' ) . '';
   $utms .= '&utm_medium=cme-' . SPARTAN_MCE_VERSION . '';
   $utms .= '&utm_term=P' . PHP_VERSION . 'Sq' . $wpdb->db_version() . '-';
@@ -49,22 +49,22 @@ function mce_panel_gen ($apivalid,$listdata,$cf7_mch,$listatags,$mce_txcomodin) 
       <div class="mail-field md-half">
         <label for="wpcf7-mailchimp-email"><?php echo esc_html( __( 'Subscriber Email: *|EMAIL|* ', 'wpcf7' ) ); ?> <span class="mce-required" > Required</span></label><br />
          <?php mce_html_selected_tag ('email',$listatags,$cf7_mch,'email') ;  ?>
-        <small class="description">MUST be an email tag <a href="<?php echo MCE_URL ?>/mailchimp-contact-form<?php echo vc_utm() ?>MC-email" class="helping-field" target="_blank" title="get help with Subscriber Email:"> Learn More</a></small>
+        <small class="description">MUST be an email tag <a href="<?php echo CHIMPHELP_URL ?>/mailchimp-required-email<?php echo vc_utm() ?>MC-email" class="helping-field" target="_blank" title="get help with Subscriber Email:"> Learn More</a></small>
       </div>
 
       <div class="mail-field md-half">
         <label for="wpcf7-mailchimp-name"><?php echo esc_html( __( 'Subscriber Name - *|FNAME|* ', 'wpcf7' ) ); ?></label><br />
          <?php mce_html_selected_tag ('name',$listatags,$cf7_mch,'text') ; ?>
-        <small class="description"> This may be sent as Name <a href="<?php echo MCE_URL ?>/mailchimp-contact-form<?php echo vc_utm() ?>MC-name" class="helping-field" target="_blank" title="get help with Subscriber name:"> Learn More</a></small>
+        <small class="description"> This may be sent as Name <a href="<?php echo CHIMPHELP_URL ?>/mailchimp-subscriber-name<?php echo vc_utm() ?>MC-name" class="helping-field" target="_blank" title="get help with Subscriber name:"> Learn More</a></small>
       </div>
     </div>
 
     <div class="mce-custom-fields holder-img">
-      <a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Groups-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-tags-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
+      <a href="<?php echo CHIMP_URL ?>?utm_source=ChimpMatic&utm_campaign=Groups-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-tags-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
     </div>
 
     <div class="mce-custom-fields holder-img">
-      <a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Tags-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-groups-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
+      <a href="<?php echo CHIMP_URL ?>?utm_source=ChimpMatic&utm_campaign=Tags-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-groups-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
     </div>
 
   </div>
@@ -92,7 +92,7 @@ function mce_panel_gen ($apivalid,$listdata,$cf7_mch,$listatags,$mce_txcomodin) 
 
     <span><input id="mce_activalist" type="button" value="Connect and Fetch Your Mailing Lists" class="button button-primary" style="width:35%;" /><span class="spinner"></span></span>
 
-    <small class="description need-api"><a href="https://chimpmatic.com/how-to-find-your-mailchimp-api-key<?php echo vc_utm() ?>MC-api" class="helping-field" target="_blank" title="get help with MailChimp API Key:"> Find your Mailchimp API here <span class="red-icon dashicons dashicons-arrow-right"></span><span class="red-icon dashicons dashicons-arrow-right"></span></a></small>
+    <small class="description need-api"><a href="<?php echo CHIMPHELP_URL ?>/how-to-get-your-mailchimp-api-key<?php echo vc_utm() ?>MC-api" class="helping-field" target="_blank" title="get help with MailChimp API Key:"> Find your Mailchimp API here <span class="red-icon dashicons dashicons-arrow-right"></span><span class="red-icon dashicons dashicons-arrow-right"></span></a></small>
 
 
     <div id="chmp-new-user" class="new-user <?php echo ( ( $apivalid == 1  ) ? 'chmp-inactive' : 'chmp-active' ) ;  ?>">

@@ -79,6 +79,12 @@ Visit [plugin documentation website](https://wpclever.net?utm_source=doc&utm_med
 
 == Changelog ==
 
+= 3.1.0 =
+* Updated: All JS functions, please clear the cache completely after updating
+* Added: Add inline alert
+* Fixed: Show product's price with original price & new price
+* Fixed: Compatible with WPC Smart Quick View & WPC Variations Radio Buttons
+
 = 3.0.2 =
 * Fixed: Sold individually
 

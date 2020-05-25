@@ -3,7 +3,7 @@
 Plugin Name: WP Fastest Cache
 Plugin URI: http://wordpress.org/plugins/wp-fastest-cache/
 Description: The simplest and fastest WP Cache system
-Version: 0.9.0.5
+Version: 0.9.0.6
 Author: Emre Vona
 Author URI: http://tr.linkedin.com/in/emrevona
 Text Domain: wp-fastest-cache
@@ -99,6 +99,10 @@ GNU General Public License for more details.
 			add_action('wp_ajax_wpfc_delete_cache', array($this, "deleteCacheToolbar"));
 			add_action('wp_ajax_wpfc_delete_cache_and_minified', array($this, "deleteCssAndJsCacheToolbar"));
 			add_action('wp_ajax_wpfc_delete_current_page_cache', array($this, "delete_current_page_cache"));
+
+			add_action('wp_ajax_wpfc_clear_cache_of_allsites', array($this, "wpfc_clear_cache_of_allsites_callback"));
+
+
 			add_action( 'wp_ajax_wpfc_save_timeout_pages', array($this, 'wpfc_save_timeout_pages_callback'));
 			add_action( 'wp_ajax_wpfc_save_exclude_pages', array($this, 'wpfc_save_exclude_pages_callback'));
 			add_action( 'wp_ajax_wpfc_cdn_options', array($this, 'wpfc_cdn_options_ajax_request_callback'));
@@ -677,7 +681,13 @@ GNU General Public License for more details.
 				if(array_intersect($allowed_roles, $user->roles)){
 					include_once plugin_dir_path(__FILE__)."inc/admin-toolbar.php";
 
-					$toolbar = new WpFastestCacheAdminToolbar();
+					if(preg_match("/\/cache\/all/", $this->getWpContentDir("/cache/all"))){
+						$is_multi = false;
+					}else{
+						$is_multi = true;
+					}
+
+					$toolbar = new WpFastestCacheAdminToolbar($is_multi);
 					$toolbar->add();
 				}
 
@@ -719,6 +729,27 @@ GNU General Public License for more details.
 
 		public function deleteCssAndJsCacheToolbar(){
 			$this->deleteCache(true);
+		}
+
+		public function wpfc_clear_cache_of_allsites_callback(){
+			include_once('inc/cdn.php');
+			CdnWPFC::cloudflare_clear_cache();
+
+			$path = $this->getWpContentDir("/cache/*");
+
+			$files = glob($this->getWpContentDir("/cache/*"));
+
+			if(!is_dir($this->getWpContentDir("/cache/tmpWpfc"))){
+				if(@mkdir($this->getWpContentDir("/cache/tmpWpfc"), 0755, true)){
+					//tmpWpfc has been created
+				}
+			}
+				
+			foreach ((array)$files as $file){
+				@rename($file, $this->getWpContentDir("/cache/tmpWpfc/").basename($file)."-".time());
+			}
+
+			die(json_encode(array("The cache of page has been cleared","success")));
 		}
 
 		public function delete_current_page_cache(){
@@ -840,6 +871,10 @@ GNU General Public License for more details.
 					}
 
 					if($this->isPluginActive('polylang/polylang.php')){
+						$path = preg_replace("/\/cache\/(all|wpfc-minified|wpfc-widget-cache|wpfc-mobile-cache)/", "/cache/".$_SERVER['HTTP_HOST']."/$1", $path);
+					}
+
+					if($this->isPluginActive('multiple-domain/multiple-domain.php')){
 						$path = preg_replace("/\/cache\/(all|wpfc-minified|wpfc-widget-cache|wpfc-mobile-cache)/", "/cache/".$_SERVER['HTTP_HOST']."/$1", $path);
 					}
 

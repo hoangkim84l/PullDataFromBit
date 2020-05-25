@@ -94,6 +94,9 @@ function mce_init_constants(){
   define( 'MCE_SETT', admin_url( 'admin.php?page=wpcf7' ) );
   define( 'MCE_DON', 'https://www.paypal.me/renzojohnson' );
 
+  define( 'CHIMP_URL', '//chimpmatic.com' );
+  define( 'CHIMPHELP_URL', '//chimpmatic.com/help' );
+
 }
 
 

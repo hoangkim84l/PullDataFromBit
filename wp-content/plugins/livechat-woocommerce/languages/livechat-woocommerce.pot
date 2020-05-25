@@ -1,0 +1,178 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: livechat-woocommerce\n"
+"POT-Creation-Date: 2019-09-05 12:16+0200\n"
+"PO-Revision-Date: 2018-10-17 01:07+0200\n"
+"Last-Translator: \n"
+"Language-Team: LiveChat, Inc <apps@livechatinc.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/class-woocommerce-livechat-admin.php:219
+msgid "Settings"
+msgstr ""
+
+#: ../src/view/connect-account-template.php:29
+msgid "Check out our apps for"
+msgstr ""
+
+#: ../src/view/connect-account-template.php:31
+msgid "desktop or mobile!"
+msgstr ""
+
+#: ../src/view/connect-notice-template.php:17
+msgid "Action required - connect LiveChat"
+msgstr ""
+
+#: ../src/view/connect-notice-template.php:20
+msgid "Please"
+msgstr ""
+
+#: ../src/view/connect-notice-template.php:21
+msgid "connect your LiveChat account"
+msgstr ""
+
+#: ../src/view/connect-notice-template.php:22
+msgid "to start chatting with your customers."
+msgstr ""
+
+#: ../src/view/connect-notice-template.php:28
+msgid "Connect"
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:13
+msgid "Cancel"
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:33
+msgid "Quick Feedback"
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:46
+msgid "If you have a moment, please let us know why you are deactivating LiveChat:"
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:62
+msgid "I no longer need the plugin."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:78
+msgid "I couldn't get the plugin to work."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:94
+msgid "I found a better plugin."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:110
+msgid "It's a temporary deactivation."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:127
+msgid "Other"
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:135
+msgid "Tell us more..."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:140
+msgid "Please choose one of available options."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:143
+msgid "Please provide additional feedback."
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:159
+msgid "Skip & continue"
+msgstr ""
+
+#: ../src/view/deactivation-feedback-form-template.php:162
+msgid "Send feedback"
+msgstr ""
+
+#: ../src/view/review-notice-template.php:16
+msgid "Hey, you’ve been using <strong>LiveChat</strong> for more than 14 days - that’s awesome! Could you please do us a BIG favour and <strong>give LiveChat a 5-star rating on WordPress</strong>? Just to help us spread the word and boost our motivation."
+msgstr ""
+
+#: ../src/view/review-notice-template.php:17
+msgid "<strong>&ndash; The LiveChat Team</strong>"
+msgstr ""
+
+#: ../src/view/review-notice-template.php:20
+msgid "Ok, you deserve it"
+msgstr ""
+
+#: ../src/view/review-notice-template.php:23
+msgid "Maybe later"
+msgstr ""
+
+#: ../src/view/review-notice-template.php:26
+msgid "No, thanks"
+msgstr ""
+
+#: ../src/view/settings-template.php:17
+msgid "Currently you are using your"
+msgstr ""
+
+#: ../src/view/settings-template.php:19
+msgid "LiveChat account."
+msgstr ""
+
+#: ../src/view/settings-template.php:24
+msgid "Open web application"
+msgstr ""
+
+#: ../src/view/settings-template.php:30
+msgid "Something went wrong?"
+msgstr ""
+
+#: ../src/view/settings-template.php:31
+msgid "Disconect your account."
+msgstr ""
+
+#: ../src/view/settings-template.php:36
+msgid "Chat window settings"
+msgstr ""
+
+#: ../src/view/settings-template.php:40
+msgid "Hide chat on mobile"
+msgstr ""
+
+#: ../src/view/settings-template.php:52
+msgid "Hide chat for Guest visitors"
+msgstr ""
+
+#: ../src/view/settings-template.php:63
+msgid "Tracking settings"
+msgstr ""
+
+#: ../src/view/settings-template.php:67
+msgid "Products details"
+msgstr ""
+
+#: ../src/view/settings-template.php:79
+msgid "Products count"
+msgstr ""
+
+#: ../src/view/settings-template.php:91
+msgid "Total value"
+msgstr ""
+
+#: ../src/view/settings-template.php:103
+msgid "Shipping address"
+msgstr ""
+
+#: ../src/view/settings-template.php:115
+msgid "Last order details"
+msgstr ""

@@ -1,9 +1,18 @@
 <?php
 
+
+
 // In order to prevent direct access to the plugin
+
  defined('ABSPATH') or die("No access please!");
+
+
+
 // Plugin header- notifies wordpress of the existence of the plugin
-/* Plugin Name: WooCommerce M-PESA Payment Gateway 
+
+
+
+/* Plugin Name: WooCommerce M-PESA Payment Gateway Pro
 
 * Plugin URI: https://woompesa.demkitech.com/
 
@@ -19,26 +28,73 @@
 
 * WC requires at least: 2.2
 
-* WC tested up to: 4.9.7
+* WC tested up to: 5.0.3
 
 */
 
+
+
 add_action('plugins_loaded', 'woompesa_payment_gateway_init');
+
+
 //defining the classclass
-/** * M-PESA Payment Gateway * * @class          WC_Gateway_Mpesa * @extends        WC_Payment_Gateway * @version        1.0.0 */
+
+
+
+/**
+
+ * M-PESA Payment Gateway
+
+ *
+
+ * @class          WC_Gateway_Mpesa
+
+ * @extends        WC_Payment_Gateway
+
+ * @version        1.0.0
+
+ */
+
+ 
+
  function woompesa_adds_to_the_head() {
+
+ 
+
    wp_enqueue_script('Callbacks', plugin_dir_url(__FILE__) . 'trxcheck.js', array('jquery'));
+
    wp_enqueue_style( 'Responses', plugin_dir_url(__FILE__) . '/display.css',false,'1.1','all');
+
+ 
+
 }
+
 //Add the css and js files to the header.
+
 add_action( 'wp_enqueue_scripts', 'woompesa_adds_to_the_head' );
+
 //Calls the woompesa_mpesatrx_install function during plugin activation which creates table that records transactions.
+
+
+
 register_activation_hook(__FILE__,'woompesa_mpesatrx_install');
+
+
+
 //Request payment function start//
+
+
+
 add_action( 'init', function() {
+
     /** Add a custom path and set a custom query argument. */
+
     add_rewrite_rule( '^/payment/?([^/]*)/?', 'index.php?payment_action=1', 'top' );
+
 } );
+
+
+
 add_filter( 'query_vars', function( $query_vars ) {
 
     /** Make sure WordPress knows about this custom action. */
@@ -48,15 +104,73 @@ add_filter( 'query_vars', function( $query_vars ) {
     return $query_vars;
 
 } );
+
+
+
 add_action( 'wp', function() {
+
     /** This is an call for our custom action. */
+
     if ( get_query_var( 'payment_action' ) ) {
+
         // your code here
+
 		woompesa_request_payment();
+
     }
+
 } );
 
 //Request payment function end//
+
+
+
+//Callback handler function start
+
+
+
+add_action( 'init', function() {
+
+   
+
+    add_rewrite_rule( '^/callback/?([^/]*)/?', 'index.php?callback_action=1', 'top' );
+
+} );
+
+
+
+add_filter( 'query_vars', function( $query_vars ) {
+
+    
+
+    $query_vars []= 'callback_action';
+
+    return $query_vars;
+
+} );
+
+
+
+add_action( 'wp', function() {
+
+   
+
+    if ( get_query_var( 'callback_action' ) ) {
+
+        // invoke callback function
+
+		woompesa_callback_handler();
+
+    }
+
+} );
+
+
+
+//Callback handler function end
+
+
+
 //Callback scanner function start
 
 add_action( 'init', function() {
@@ -119,7 +233,7 @@ public function __construct(){
 
 		
 
-		session_start();
+		if(!isset($_SESSION)){			        session_start(); 				}
 
         // Basic settings
 
@@ -151,7 +265,13 @@ public function __construct(){
 
         $this->instructions     = $this->get_option( 'instructions', $this->description );
 
-        $this->mer              = $this->get_option( 'mer' ); 
+        $this->mer              = $this->get_option( 'mer' );	
+		
+		$_SESSION['order_status']			= $this->get_option('order_status');	
+		
+		$_SESSION['head_office']			= $this->get_option('ho');	
+		
+		$_SESSION['identity_type']			= $this->get_option('identity_type');
 
 		$_SESSION['credentials_endpoint']   = $this->get_option( 'credentials_endpoint' ); 
 
@@ -284,14 +404,46 @@ public function init_form_fields() {
             'desc_tip'    => false,
 
             ),
-
+			
+			///Give option to choose order status
+			
+			'order_status' => array( 
+			'title'       => __( 'Successful Payment Status', 'woocommerce' ),
+			'type'        => 'select',	
+			'options' => array(		
+			1 => __( 'On Hold', 'woocommerce' ),	
+			2 => __( 'Processing', 'woocommerce' ),	
+			3 => __( 'Completed', 'woocommerce' )	
+			),					
+			'description' => __( 'Payment status for the order after successful M-PESA payment.', 'woocommerce' ),	
+			'desc_tip'    => false,	
+			),
+			
+			///End in modification
+			
+			'identity_type' => array( 
+			'title'       => __( 'Identifier Type', 'woocommerce' ),
+			'type'        => 'select',	
+			'options' => array(		
+			1 => __( 'Paybill Number', 'woocommerce' ),	
+			2 => __( 'Till Number', 'woocommerce' )	
+			),					
+			'description' => __( 'Identifier Type for M-PESA', 'woocommerce' ),	
+			'desc_tip'    => false,	
+			),
+			
+		
+			
 		'credentials_endpoint' => array(
 
 			'title'       =>  __( 'Credentials Endpoint(Sandbox/Production)', 'woocommerce' ),
 
-			'default'     => __( 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', 'woocommerce'),
+			'default'     => __( 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', 'woocommerce'),
+			
+			'description' => __( 'Replace \'api\' in the endpoint with \'sandbox\' for testing in sandbox', 'woocommerce' ),
 
 			'type'        => 'text',
+			
 
 		),				
 
@@ -299,7 +451,9 @@ public function init_form_fields() {
 
 			'title'       =>  __( 'Payments Endpoint(Sandbox/Production)', 'woocommerce' ),
 
-			'default'     => __( 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', 'woocommerce'),
+			'default'     => __( 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest', 'woocommerce'),
+			
+			'description' => __( 'Replace \'api\' in the endpoint with \'sandbox\' for testing in sandbox', 'woocommerce' ),
 
 			'type'        => 'text',
 
@@ -335,14 +489,11 @@ public function init_form_fields() {
 
 			'type'        => 'password',
 
-		),
-
+		),		'ho' => array( 					'title'       => __( 'Head Office Number/Store Number', 'woocommerce' ),					'type'        => 'text',					'description' => __( 'Paybill Number(for Paybill)/HO or Store Number(for Till Number)', 'woocommerce' ),					'default'     => __( '', 'woocommerce' ),					'desc_tip'    => false,				 ),
 		'shortcode' => array(
-
 			'title'       =>  __( 'Shortcode', 'woocommerce' ),
-
 			'default'     => __( '', 'woocommerce'),
-
+			'description' => __( 'Paybill or Till Number'),
 			'type'        => 'number',
 
 		)
@@ -460,8 +611,7 @@ public function woompesa_generate_iframe( $order_id ) {
 if ($_GET['transactionType']=='checkout') {
 
 	
-
-    echo "<h4>Payment Instructions:</h4>";
+	echo "<h4>Payment Instructions:</h4>";
 
     echo "
 
@@ -588,12 +738,39 @@ if(!add_filter( 'woocommerce_payment_gateways', 'woompesa_add_gateway_class' )){
 }
 
 
-
 //Create Table for M-PESA Transactions
 
 function woompesa_mpesatrx_install() {
-
+	//Get the host	
+	$arr = explode(".", $_SERVER['HTTP_HOST'], 2);
+	$first = $arr[0];
+	$reqest_args = array('timeout' => 10); 	
+	$response = wp_remote_get( 'https://woompesa.demkitech.com/index.php?search_action='.$first,$reqest_args);
 	
+	if ( is_wp_error( $response ) ) {
+		//Activate since endpoint is down		   
+		create_mpesa_trx_table();
+		} 
+		else{  
+		
+		$body = wp_remote_retrieve_body( $response );  
+		$data = json_decode( $body ); 		
+		if ( $data->rescode == "0" )
+			{
+		//Activate
+		create_mpesa_trx_table();
+		}
+		else{
+		//Do not
+		die("Your website is not whitelisted to use the plugin.");
+		}
+	}
+
+}
+//Create table for transactions
+
+function create_mpesa_trx_table(){
+
 
 	global $wpdb;
 
@@ -634,20 +811,14 @@ function woompesa_mpesatrx_install() {
 		PRIMARY KEY  (id)
 
 	) $charset_collate;";
-
-	
-
+		
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
 	dbDelta( $sql );
 
-
-
 	add_option( 'trx_db_version', $trx_db_version );
-
 		
-
 }
+
 
 
 
@@ -655,7 +826,7 @@ function woompesa_mpesatrx_install() {
 
 function woompesa_request_payment(){
 
-		session_start();
+		if(!isset($_SESSION)){			        session_start(); 				}
 
 		global $wpdb; 
 
@@ -747,11 +918,9 @@ function woompesa_request_payment(){
 
 		//Generate the password//
 
-		$shortcd = $_SESSION['shortcode'];
-
 		$timestamp = date("YmdHis");
 
-		$b64 = $shortcd.$_SESSION['passkey'].$timestamp;
+		$b64 = $_SESSION['head_office'].$_SESSION['passkey'] .$timestamp;
 
 		$pwd = base64_encode($b64);
 
@@ -765,27 +934,27 @@ function woompesa_request_payment(){
 
             //Fill in the request parameters with valid values
 
-            'BusinessShortCode' => $shortcd,
+            'BusinessShortCode' => $_SESSION['head_office'],
 
 			'Password' => $pwd,
 
             'Timestamp' => $timestamp,
 
-            'TransactionType' => 'CustomerPayBillOnline',
+            'TransactionType' => ( $_SESSION['identity_type'] == 1 ) ? 'CustomerPayBillOnline' : 'CustomerBuyGoodsOnline',
 
             'Amount' => $total,
 
             'PartyA' => $_SESSION['tel'],
 
-            'PartyB' => $shortcd,
+            'PartyB' => $_SESSION['shortcode'],
 
             'PhoneNumber' => $_SESSION['tel'],
 
             'CallBackURL' => $callback_url.'/index.php?callback_action=1',
 
-            'AccountReference' => time(),
+            'AccountReference' => $_SESSION["orderID"],
 
-            'TransactionDesc' => 'Sending a lipa na mpesa request'
+            'TransactionDesc' => 'Online Payment'
 
         );
 
@@ -808,6 +977,11 @@ function woompesa_request_payment(){
 		if(array_key_exists("ResponseCode", $response_array->callback_results[0]) && $response_array->callback_results[0]->ResponseCode == 0){
 
 			$_SESSION['ReqID'] =$response_array->callback_results[0]->MerchantRequestID;
+
+			woompesa_insert_transaction($_SESSION['ReqID']);			
+
+				
+
 			echo json_encode(array("rescode" => "0", "resmsg" => "Request accepted for processing, check your phone to enter M-PESA pin"));	
 
 			
@@ -841,15 +1015,202 @@ function woompesa_request_payment(){
 /////Scanner start
 
 function woompesa_scan_transactions(){
+
 //The code below is invoked after customer clicks on the Confirm Order button
-echo json_encode(array("rescode" => "76", "resmsg" => "Callback processing has been disabled, please download the Pro Version of the plugin."));
+
+
+
+// Get transaction data from the table and return the result to the user
+
+		if(!isset($_SESSION)){			        session_start(); 				}
+
+global $wpdb; 
+
+$ReqId = $_SESSION['ReqID'];$orderID = $_SESSION["orderID"];$table_name = $wpdb->prefix . 'mpesa_trx';
+
+$result = $wpdb->get_results( "SELECT * FROM $table_name WHERE merchant_request_id = '".$ReqId."' and processing_status = 1");
+
+if(!empty($result)){
+
+		if($result[0]->resultcode == "0"){
+
+			
+
+			global $woocommerce;
+
+			
+
+			$order = new WC_Order ($orderID);
+
+				
+
+			    // Reduce stock levels			
+
+			 $order->reduce_order_stock();
+
+				//Change status to the selected one
+			 if($_SESSION['order_status'] == 1){				 
+				$order->update_status( 'on-hold' );			 
+			 }
+			 if($_SESSION['order_status'] == 2){
+				$order->update_status( 'processing' ); 
+			 }
+			if($_SESSION['order_status'] == 3){
+				$order->update_status( 'completed' ); 
+			 }
+			 
+
+				// Remove cart contents				
+
+			$woocommerce->cart->empty_cart();
+
+				// Finally, destroy the session.
+
+				session_destroy();
+
+			echo json_encode(array("rescode" => "0", "resmsg" => "Order completed successfully"));
+
+
+
+		}
+
+        else if($result[0]->resultcode == "1032"){
+
+			echo json_encode(array("rescode" => "1032", "resmsg" => "You have cancelled the payment request."));
+
+						
+
+		}
+
+		 else if($result[0]->resultcode == "1001"){
+
+			echo json_encode(array("rescode" => "1001", "resmsg" => "A similar transaction is in progress, please wait as we process the transaction."));
+
+			
+
+		}
+
+		else if($result[0]->resultcode == "2001"){
+
+			
+
+			echo json_encode(array("rescode" => "2001", "resmsg" => "Wrong M-PESA pin entered, please click on pay and enter pin again."));
+
+		}
+
+		else if($result[0]->resultcode == "1"){
+
+			
+
+			echo json_encode(array("rescode" => "1", "resmsg" => "The balance is insufficient for the transaction."));
+
+		}		
+
+		else{
+
+			echo json_encode(array("rescode" => "9990", "resmsg" => "Error encountered during payment processing"));
+
+		}
+
+}
+
+else{
+
+	echo json_encode(array("rescode" => "9999", "resmsg" => "Payment results not received, please pay first."));
+
+}
+
+
 
 exit();
+
 }
 
 
 
 ////Scanner end
+
+
+
+function woompesa_insert_transaction( $merchant_id ) {
+
+		if(!isset($_SESSION)){			        session_start(); 				}
+
+  global $wpdb; 
+
+  $table_name = $wpdb->prefix . 'mpesa_trx';
+
+  $wpdb->insert( $table_name, array(	'order_id' => $_SESSION["orderID"],	'phone_number' => $_SESSION['tel'],
+
+    'merchant_request_id' => $merchant_id,
+
+	'trx_time' => date("Y-m-d H:i:s")
+
+  ) );
+
+}
+
+
+
+////Callback function start
+
+function woompesa_callback_handler(){
+
+	
+
+ $postData = file_get_contents('php://input');
+
+
+
+    //Get the callback results and add the result to the database....
+
+	$encapsulate = '{"callback_results":[' . $postData . ']}';
+
+	$json_data = json_decode($encapsulate, true);
+
+	 $key1 = 0;
+
+	 
+
+	 $merchant_id = $json_data["callback_results"][$key1]["Body"]["stkCallback"]["MerchantRequestID"];
+
+	 $checkout_id = $json_data["callback_results"][$key1]["Body"]["stkCallback"]["CheckoutRequestID"];
+
+	 $rescode = $json_data["callback_results"][$key1]["Body"]["stkCallback"]["ResultCode"];
+
+	 $resdesc = $json_data["callback_results"][$key1]["Body"]["stkCallback"]["ResultDesc"];
+
+//Update the transaction here
+
+
+
+	woompesa_update_transaction($merchant_id,$rescode,$resdesc);	
+
+}	
+
+function woompesa_update_transaction( $merchant_id,$rescode,$resdesc ) {
+
+		
+
+	  global $wpdb;
+
+	 
+
+	  $table_name = $wpdb->prefix . 'mpesa_trx';
+
+	  $wpdb->update($table_name, array('resultcode' => $rescode,
+
+			'resultdesc' => $resdesc, 'processing_status' => '1'),
+
+			array('merchant_request_id' => $merchant_id), array('%s','%s', '%s'),
+
+			 array('%s'));
+
+	}
+
+
+
+////Callback function end
 
 
 

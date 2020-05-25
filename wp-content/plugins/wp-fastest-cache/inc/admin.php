@@ -1656,16 +1656,16 @@
 				    			</div>
 				    			<div class="wpfc-premium-step-footer">
 				    				<?php
-				    					if(in_array(get_bloginfo('language'), array("tr-TR", "tr", "it-IT", "nl", "fr-FR", "ja", "de-AT", "en-CA", "en-GB"))){
+				    					if(in_array(get_bloginfo('language'), array("en-US"))){
+					    					$premium_price = "$49.99";
+					    					$premium_buy_link = "https://api.wpfastestcache.net/paypal/buypremium/";
+				    					}else{
 				    						$premium_buy_link = "https://www.wpfastestcache.com/#buy";
 				    						$premium_price = "$49.99";
 
 				    						if(in_array(get_bloginfo('language'), array("tr-TR", "tr"))){
 				    							$premium_price = "150TL";
 				    						}
-				    					}else{
-					    					$premium_price = "$49.99";
-					    					$premium_buy_link = "https://api.wpfastestcache.net/paypal/buypremium/";
 				    					}
 
 				    				?>

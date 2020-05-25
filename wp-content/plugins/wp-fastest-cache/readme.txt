@@ -4,7 +4,7 @@ Donate link: http://profiles.wordpress.org/emrevona/
 Tags: cache, caching, performance, wp-cache, total cache, super cache, cdn
 Requires at least: 3.3
 Tested up to: 5.4
-Stable tag: 0.9.0.5
+Stable tag: 0.9.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -123,6 +123,12 @@ The free version is enough to speed up your site but in the premium version ther
 18. Database Cleanup
 
 == Changelog ==
+
+= 0.9.0.6 =
+* <strong>[FEATURE]</strong> to add WP-CLI command for clearing minified sources [<a target="_blank" href="https://www.wpfastestcache.com/features/wp-cli-commands/">Details</a>]
+* to fix Warning: parse_url() expects parameter 1 to be string, object given in preload.php on line 458
+* <strong>[FEATURE]</strong> Compatible with <a target="_blank" href="https://wordpress.org/plugins/multiple-domain/">Multiple Domain</a>
+* <strong>[FEATURE]</strong> to add Clear Cache of All Sites button [<a target="_blank" href="https://www.wpfastestcache.com/features/clear-cache-of-all-sites/">Details</a>]
 
 = 0.9.0.5 =
 * to fix replacing urls on the json source with cdn url

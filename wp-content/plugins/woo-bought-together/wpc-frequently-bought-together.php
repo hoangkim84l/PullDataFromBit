@@ -3,7 +3,7 @@
 Plugin Name: WPC Frequently Bought Together for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Increase your sales with personalized product recommendations.
-Version: 3.0.2
+Version: 3.1.0
 Author: WPClever.net
 Author URI: https://wpclever.net
 Text Domain: woobt
@@ -11,12 +11,12 @@ Domain Path: /languages/
 Requires at least: 4.0
 Tested up to: 5.4.1
 WC requires at least: 3.0
-WC tested up to: 4.0.1
+WC tested up to: 4.1.0
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOBT_VERSION' ) && define( 'WOOBT_VERSION', '3.0.2' );
+! defined( 'WOOBT_VERSION' ) && define( 'WOOBT_VERSION', '3.1.0' );
 ! defined( 'WOOBT_URI' ) && define( 'WOOBT_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WOOBT_REVIEWS' ) && define( 'WOOBT_REVIEWS', 'https://wordpress.org/support/plugin/woo-bought-together/reviews/?filter=5' );
 ! defined( 'WOOBT_CHANGELOG' ) && define( 'WOOBT_CHANGELOG', 'https://wordpress.org/plugins/woo-bought-together/#developers' );
@@ -657,18 +657,19 @@ if ( ! function_exists( 'woobt_init' ) ) {
 					wp_localize_script( 'woobt-frontend', 'woobt_vars', array(
 							'version'                  => WOOBT_VERSION,
 							'total_price_text'         => $woobt_total_price_text,
+							'add_to_cart'              => esc_html__( 'Add to cart', 'woobt' ),
 							'position'                 => get_option( '_woobt_position', 'before' ),
 							'change_image'             => get_option( '_woobt_change_image', 'yes' ),
 							'change_price'             => get_option( '_woobt_change_price', 'yes' ),
 							'price_selector'           => get_option( '_woobt_change_price_custom', '' ),
 							'counter'                  => get_option( '_woobt_counter', 'individual' ),
-							'variation_selector'       => get_option( '_woobt_variations_selector', 'default' ),
+							'variation_selector'       => ( class_exists( 'WPClever_Woovr' ) && ( get_option( '_woobt_variations_selector', 'default' ) === 'wpc_radio' ) ) ? 'wpc_radio' : 'default',
 							'price_format'             => get_woocommerce_price_format(),
 							'price_decimals'           => wc_get_price_decimals(),
 							'price_thousand_separator' => wc_get_price_thousand_separator(),
 							'price_decimal_separator'  => wc_get_price_decimal_separator(),
 							'currency_symbol'          => get_woocommerce_currency_symbol(),
-							'alert_selection'          => esc_html__( 'Please select some product options before adding to the cart.', 'woobt' ),
+							'alert_selection'          => esc_html__( 'Please select some product options for [name] before adding to the cart.', 'woobt' ),
 						)
 					);
 				}
@@ -1313,7 +1314,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 					global $product;
 
 					if ( ! $product->is_type( 'grouped' ) ) {
-						echo '<input name="woobt_ids" class="woobt_ids woobt-ids" type="hidden" value="' . get_post_meta( $product->get_id(), 'woobt_ids', true ) . '"/>';
+						echo '<input name="woobt_ids" class="woobt_ids woobt-ids" data-id="' . esc_attr( $product->get_id() ) . '" type="hidden" value="' . esc_attr( get_post_meta( $product->get_id(), 'woobt_ids', true ) ) . '"/>';
 					}
 				}
 
@@ -1377,7 +1378,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 					}
 
 					if ( $woobt_items && ! empty( $woobt_items ) ) {
-						echo '<div class="woobt-wrap">';
+						echo '<div class="woobt-wrap woobt-wrap-' . esc_attr( $product_id ) . '" data-id="' . esc_attr( $product_id ) . '">';
 
 						do_action( 'woobt_wrap_before', $product );
 
@@ -1504,6 +1505,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 								?>
                                 <tr class="woobt-product woobt-product-together"
                                     data-id="<?php echo esc_attr( $woobt_product->is_type( 'variable' ) || ! $woobt_product->is_in_stock() ? 0 : $woobt_item_id ); ?>"
+                                    data-name="<?php echo esc_attr( $woobt_product->get_name() ); ?>"
                                     data-price="<?php echo esc_attr( ! $woobt_separately ? $woobt_item_price : '100%' ); ?>"
                                     data-price-ori="<?php echo esc_attr( wc_get_price_to_display( $woobt_product ) ); ?>"
                                     data-qty="<?php echo esc_attr( $woobt_item_qty ); ?>"
@@ -1548,7 +1550,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 											echo '<div class="woobt-description">' . $woobt_product->get_short_description() . '</div>';
 										}
 
-										echo wc_get_stock_html( $woobt_product );
+										echo '<div class="woobt-availability">' . wc_get_stock_html( $woobt_product ) . '</div>';
 										?>
                                     </td><!-- /woobt-title -->
 
@@ -1595,7 +1597,8 @@ if ( ! function_exists( 'woobt_init' ) ) {
                             </tbody>
                         </table>
 						<?php
-						echo '<div class="woobt_total woobt-text"></div>';
+						echo '<div class="woobt_total woobt-total woobt-text"></div>';
+						echo '<div class="woobt_alert woobt-alert woobt-text" style="display: none"></div>';
 
 						if ( $woobt_after_text = apply_filters( 'woobt_after_text', get_post_meta( $product_id, 'woobt_after_text', true ), $product_id ) ) {
 							echo '<div class="woobt_after_text woobt-after-text woobt-text">' . do_shortcode( stripslashes( $woobt_after_text ) ) . '</div>';
@@ -1686,7 +1689,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 				function woobt_new_price( $old_price, $new_price ) {
 					if ( strpos( $new_price, '%' ) !== false ) {
-						$calc_price = ( (int) $new_price * $old_price ) / 100;
+						$calc_price = ( (float) $new_price * $old_price ) / 100;
 					} else {
 						$calc_price = $new_price;
 					}

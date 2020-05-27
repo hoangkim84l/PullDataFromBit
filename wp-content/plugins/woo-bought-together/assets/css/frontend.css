@@ -80,7 +80,7 @@
 
 .woobt-products .woobt-product .woobt-quantity .quantity {
     float: none !important;
-    margin: 0 0 0 0;
+    margin: 0 0 0 0 !important;
 }
 
 .woobt-products .woobt-product.woobt-hide .woobt-quantity * {
@@ -92,8 +92,15 @@
     cursor: not-allowed;
 }
 
-.woobt-products .woobt-product .woobt-quantity .woobt-qty {
-    width: 60px;
+.woobt-products .woobt-product .woobt-quantity-input .woobt-qty {
+    width: 48px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.woobt-products .woobt-product .woobt-quantity-input .woobt-qty::-webkit-outer-spin-button, .woobt-products .woobt-product .woobt-quantity-input .woobt-qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .woobt-products .woobt-product .variations_form .variations {
@@ -187,4 +194,44 @@
     border-left: 4px solid #222;
     background-color: #eeeeee;
     font-size: 14px;
+}
+
+.woobt-quantity-input {
+    display: flex;
+    align-items: center;
+}
+
+.woobt-quantity-input .plus, .woobt-quantity-input .minus {
+    display: none !important;
+}
+
+.woobt-quantity-input-plus, .woobt-quantity-input-minus {
+    width: 32px;
+    height: 32px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fefefe;
+    border: 1px solid #e5e5e5;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.woobt-quantity-input .qty, .woobt-quantity-input .woobt-qty {
+    height: 32px;
+    line-height: 30px;
+    padding: 0 10px;
+    box-shadow: none;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #e5e5e5;
+    background-color: #fefefe;
+}
+
+.woobt-quantity-input-plus:hover, .woobt-quantity-input-minus:hover {
+    background-color: #f0f0f0;
 }

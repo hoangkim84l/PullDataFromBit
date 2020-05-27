@@ -79,6 +79,11 @@ Visit [plugin documentation website](https://wpclever.net?utm_source=doc&utm_med
 
 == Changelog ==
 
+= 3.1.1 =
+* Added: Price suffix
+* Added: Plus/minus button for quantity input
+* Fixed: Some minor CSS & JS issues
+
 = 3.1.0 =
 * Updated: All JS functions, please clear the cache completely after updating
 * Added: Add inline alert

@@ -36,9 +36,9 @@ Wordpress Extension For Mailchimp (Chimpmatic Lite). Integrate Contact Form 7 wi
 
 = Premium Features =
 
-* NEW [Tag Existing Mailchimp Subscribers](https://chimpmatic.com)
-* NEW [Group Existing Mailchimp Subscribers](https://chimpmatic.com)
-* NEW [Unlimited Mailchimp Custom Fields](https://chimpmatic.com)
+* NEW [Tag Existing Mailchimp Subscribers](https://chimpmatic.com/pricing)
+* NEW [Group Existing Mailchimp Subscribers](https://chimpmatic.com/faq)
+* NEW [Unlimited Mailchimp Custom Fields](https://chimpmatic.com/pro)
 * NEW [Mailchimp Email Verification](https://chimpmatic.com)
 * NEW [Unsubscribe](https://chimpmatic.com)
 * NEW [Archive](https://chimpmatic.com)

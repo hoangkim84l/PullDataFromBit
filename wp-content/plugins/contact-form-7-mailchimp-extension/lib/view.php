@@ -60,11 +60,11 @@ function mce_panel_gen ($apivalid,$listdata,$cf7_mch,$listatags,$mce_txcomodin) 
     </div>
 
     <div class="mce-custom-fields holder-img">
-      <a href="<?php echo CHIMP_URL ?>?utm_source=ChimpMatic&utm_campaign=Groups-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-tags-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
+      <a href="<?php echo CHIMPL_URL ?>?utm_source=ChimpMatic&utm_campaign=Groups-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-tags-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
     </div>
 
     <div class="mce-custom-fields holder-img">
-      <a href="<?php echo CHIMP_URL ?>?utm_source=ChimpMatic&utm_campaign=Tags-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-groups-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
+      <a href="<?php echo CHIMPL_URL ?>?utm_source=ChimpMatic&utm_campaign=Tags-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-groups-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
     </div>
 
   </div>

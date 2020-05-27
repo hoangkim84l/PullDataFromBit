@@ -3,7 +3,7 @@
 Plugin Name: WPC Frequently Bought Together for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Increase your sales with personalized product recommendations.
-Version: 3.1.0
+Version: 3.1.1
 Author: WPClever.net
 Author URI: https://wpclever.net
 Text Domain: woobt
@@ -11,12 +11,12 @@ Domain Path: /languages/
 Requires at least: 4.0
 Tested up to: 5.4.1
 WC requires at least: 3.0
-WC tested up to: 4.1.0
+WC tested up to: 4.1.1
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOBT_VERSION' ) && define( 'WOOBT_VERSION', '3.1.0' );
+! defined( 'WOOBT_VERSION' ) && define( 'WOOBT_VERSION', '3.1.1' );
 ! defined( 'WOOBT_URI' ) && define( 'WOOBT_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WOOBT_REVIEWS' ) && define( 'WOOBT_REVIEWS', 'https://wordpress.org/support/plugin/woo-bought-together/reviews/?filter=5' );
 ! defined( 'WOOBT_CHANGELOG' ) && define( 'WOOBT_CHANGELOG', 'https://wordpress.org/plugins/woo-bought-together/#developers' );
@@ -41,7 +41,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 		if ( ! class_exists( 'WPCleverWoobt' ) && class_exists( 'WC_Product' ) ) {
 			class WPCleverWoobt {
-				protected static $woobt_types = array( 'simple', 'woosb', 'bundle', 'subscription' );
+				protected static $types = array( 'simple', 'woosb', 'bundle', 'subscription' );
 
 				function __construct() {
 					// Menu
@@ -126,10 +126,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 					), 10, 2 );
 
 					// Cart contents
-					add_filter( 'woocommerce_get_cart_contents', array(
-						$this,
-						'woobt_get_cart_contents'
-					), 10, 1 );
+					add_filter( 'woocommerce_get_cart_contents', array( $this, 'woobt_get_cart_contents' ), 10, 1 );
 
 					// Cart item
 					add_filter( 'woocommerce_cart_item_name', array( $this, 'woobt_cart_item_name' ), 10, 2 );
@@ -356,6 +353,22 @@ if ( ! function_exists( 'woobt_init' ) ) {
 														<?php esc_html_e( 'No', 'woobt' ); ?>
                                                     </option>
                                                 </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><?php esc_html_e( 'Show plus/minus button', 'woobt' ); ?></th>
+                                            <td>
+                                                <select name="_woobt_plus_minus">
+                                                    <option
+                                                            value="yes" <?php echo( get_option( '_woobt_plus_minus', 'no' ) === 'yes' ? 'selected' : '' ); ?>>
+														<?php esc_html_e( 'Yes', 'woobt' ); ?>
+                                                    </option>
+                                                    <option
+                                                            value="no" <?php echo( get_option( '_woobt_plus_minus', 'no' ) === 'no' ? 'selected' : '' ); ?>>
+														<?php esc_html_e( 'No', 'woobt' ); ?>
+                                                    </option>
+                                                </select> <span
+                                                        class="description"><?php esc_html_e( 'Show the plus/minus button for the quantity input.', 'woobt' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -621,7 +634,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
                                                        value="<?php esc_html_e( 'Update Options', 'woobt' ); ?>"/>
                                                 <input type="hidden" name="action" value="update"/>
                                                 <input type="hidden" name="page_options"
-                                                       value="_woobt_default,_woobt_position,_woobt_show_thumb,_woobt_show_price,_woobt_show_description,_woobt_variations_selector,_woobt_link,_woobt_show_this_item,_woobt_change_image,_woobt_change_price,_woobt_change_price_custom,_woobt_counter,_woobt_total_price_text,_woobt_cart_quantity,_woobt_associated_text,_woobt_search_limit,_woobt_search_sku,_woobt_search_id,_woobt_search_exact,_woobt_search_sentence,_woobt_search_same"/>
+                                                       value="_woobt_default,_woobt_position,_woobt_show_thumb,_woobt_show_price,_woobt_show_description,_woobt_plus_minus,_woobt_variations_selector,_woobt_link,_woobt_show_this_item,_woobt_change_image,_woobt_change_price,_woobt_change_price_custom,_woobt_counter,_woobt_total_price_text,_woobt_cart_quantity,_woobt_associated_text,_woobt_search_limit,_woobt_search_sku,_woobt_search_id,_woobt_search_exact,_woobt_search_sentence,_woobt_search_same"/>
                                             </th>
                                         </tr>
                                     </table>
@@ -648,15 +661,15 @@ if ( ! function_exists( 'woobt_init' ) ) {
 					wp_enqueue_style( 'woobt-frontend', WOOBT_URI . 'assets/css/frontend.css' );
 					wp_enqueue_script( 'woobt-frontend', WOOBT_URI . 'assets/js/frontend.js', array( 'jquery' ), WOOBT_VERSION, true );
 
-					$woobt_total_price_text = get_option( '_woobt_total_price_text' );
+					$total_price_text = get_option( '_woobt_total_price_text' );
 
-					if ( empty( $woobt_total_price_text ) ) {
-						$woobt_total_price_text = esc_html__( 'Additional price:', 'woobt' );
+					if ( empty( $total_price_text ) ) {
+						$total_price_text = esc_html__( 'Additional price:', 'woobt' );
 					}
 
 					wp_localize_script( 'woobt-frontend', 'woobt_vars', array(
 							'version'                  => WOOBT_VERSION,
-							'total_price_text'         => $woobt_total_price_text,
+							'total_price_text'         => $total_price_text,
 							'add_to_cart'              => esc_html__( 'Add to cart', 'woobt' ),
 							'position'                 => get_option( '_woobt_position', 'before' ),
 							'change_image'             => get_option( '_woobt_change_image', 'yes' ),
@@ -665,6 +678,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 							'counter'                  => get_option( '_woobt_counter', 'individual' ),
 							'variation_selector'       => ( class_exists( 'WPClever_Woovr' ) && ( get_option( '_woobt_variations_selector', 'default' ) === 'wpc_radio' ) ) ? 'wpc_radio' : 'default',
 							'price_format'             => get_woocommerce_price_format(),
+							'price_suffix'             => ( $suffix = get_option( 'woocommerce_price_display_suffix' ) ) && wc_tax_enabled() ? $suffix : '',
 							'price_decimals'           => wc_get_price_decimals(),
 							'price_thousand_separator' => wc_get_price_thousand_separator(),
 							'price_decimal_separator'  => wc_get_price_decimal_separator(),
@@ -717,12 +731,12 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 				function woobt_display_post_states( $states, $post ) {
 					if ( 'product' == get_post_type( $post->ID ) ) {
-						if ( $woobt_ids = get_post_meta( $post->ID, 'woobt_ids', true ) ) {
-							$woobt_ids = $this->woobt_clean_ids( $woobt_ids );
+						if ( $ids = get_post_meta( $post->ID, 'woobt_ids', true ) ) {
+							$ids = $this->woobt_clean_ids( $ids );
 
-							if ( ! empty( $woobt_ids ) ) {
-								$woobt_count = count( explode( ',', $woobt_ids ) );
-								$states[]    = apply_filters( 'woobt_post_states', '<span class="woobt-state">' . sprintf( esc_html__( 'Associate (%s)', 'woobt' ), $woobt_count ) . '</span>', $woobt_count, $post->ID );
+							if ( ! empty( $ids ) ) {
+								$count    = count( explode( ',', $ids ) );
+								$states[] = apply_filters( 'woobt_post_states', '<span class="woobt-state">' . sprintf( esc_html__( 'Associate (%s)', 'woobt' ), $count ) . '</span>', $count, $post->ID );
 							}
 						}
 					}
@@ -732,15 +746,15 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 				function woobt_cart_item_removed( $cart_item_key, $cart ) {
 					if ( isset( $cart->removed_cart_contents[ $cart_item_key ]['woobt_keys'] ) ) {
-						$woobt_keys = $cart->removed_cart_contents[ $cart_item_key ]['woobt_keys'];
+						$keys = $cart->removed_cart_contents[ $cart_item_key ]['woobt_keys'];
 
-						foreach ( $woobt_keys as $woobt_key ) {
-							unset( $cart->cart_contents[ $woobt_key ] );
+						foreach ( $keys as $key ) {
+							unset( $cart->cart_contents[ $key ] );
 						}
 					}
 				}
 
-				function woobt_cart_item_name( $name, $item ) {
+				function woobt_cart_item_name( $item_name, $item ) {
 					if ( isset( $item['woobt_parent_id'] ) && ! empty( $item['woobt_parent_id'] ) ) {
 						$associated_text = get_option( '_woobt_associated_text', '' );
 
@@ -748,16 +762,16 @@ if ( ! function_exists( 'woobt_init' ) ) {
 							$associated_text = esc_html__( '(bought together %s)', 'woobt' );
 						}
 
-						if ( strpos( $name, '</a>' ) !== false ) {
-							$woobt_name = sprintf( $associated_text, '<a href="' . get_permalink( $item['woobt_parent_id'] ) . '">' . get_the_title( $item['woobt_parent_id'] ) . '</a>' );
+						if ( strpos( $item_name, '</a>' ) !== false ) {
+							$name = sprintf( $associated_text, '<a href="' . get_permalink( $item['woobt_parent_id'] ) . '">' . get_the_title( $item['woobt_parent_id'] ) . '</a>' );
 						} else {
-							$woobt_name = sprintf( $associated_text, get_the_title( $item['woobt_parent_id'] ) );
+							$name = sprintf( $associated_text, get_the_title( $item['woobt_parent_id'] ) );
 						}
 
-						$name .= ' <span class="woobt-item-name">' . apply_filters( 'woobt_item_name', $woobt_name, $item ) . '</span>';
+						$item_name .= ' <span class="woobt-item-name">' . apply_filters( 'woobt_item_name', $name, $item ) . '</span>';
 					}
 
-					return $name;
+					return $item_name;
 				}
 
 				function woobt_cart_item_price( $price, $cart_item ) {
@@ -779,15 +793,15 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 				function woobt_update_cart_item_quantity( $cart_item_key, $quantity = 0 ) {
 					if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['woobt_keys'] ) ) {
-						foreach ( WC()->cart->cart_contents[ $cart_item_key ]['woobt_keys'] as $woobt_key ) {
-							if ( isset( WC()->cart->cart_contents[ $woobt_key ] ) ) {
+						foreach ( WC()->cart->cart_contents[ $cart_item_key ]['woobt_keys'] as $key ) {
+							if ( isset( WC()->cart->cart_contents[ $key ] ) ) {
 								if ( $quantity <= 0 ) {
-									$woobt_qty = 0;
+									$qty = 0;
 								} else {
-									$woobt_qty = $quantity * ( WC()->cart->cart_contents[ $woobt_key ]['woobt_qty'] ?: 1 );
+									$qty = $quantity * ( WC()->cart->cart_contents[ $key ]['woobt_qty'] ?: 1 );
 								}
 
-								WC()->cart->set_quantity( $woobt_key, $woobt_qty, false );
+								WC()->cart->set_quantity( $key, $qty, false );
 							}
 						}
 					}
@@ -796,10 +810,10 @@ if ( ! function_exists( 'woobt_init' ) ) {
 				function woobt_add_cart_item_data( $cart_item_data, $product_id ) {
 					if ( isset( $_POST['woobt_ids'] ) && ( get_post_meta( $product_id, 'woobt_ids', true ) || ( get_option( '_woobt_default', 'none' ) !== 'none' ) ) ) {
 						// make sure that is bought together product
-						$woobt_ids = $this->woobt_clean_ids( $_POST['woobt_ids'] );
+						$ids = $this->woobt_clean_ids( $_POST['woobt_ids'] );
 
-						if ( ! empty( $woobt_ids ) ) {
-							$cart_item_data['woobt_ids'] = $woobt_ids;
+						if ( ! empty( $ids ) ) {
+							$cart_item_data['woobt_ids'] = $ids;
 						}
 
 						unset( $_POST['woobt_ids'] );
@@ -829,34 +843,34 @@ if ( ! function_exists( 'woobt_init' ) ) {
 				function woobt_add_to_cart_validation( $passed, $product_id ) {
 					if ( ( get_post_meta( $product_id, 'woobt_separately', true ) !== 'on' ) && get_post_meta( $product_id, 'woobt_ids', true ) ) {
 						if ( isset( $_POST['woobt_ids'] ) && ! empty( $_POST['woobt_ids'] ) ) {
-							if ( $woobt_items = $this->woobt_get_items( $_POST['woobt_ids'] ) ) {
-								foreach ( $woobt_items as $woobt_item ) {
-									$woobt_product = wc_get_product( $woobt_item['id'] );
+							if ( $items = $this->woobt_get_items( $_POST['woobt_ids'] ) ) {
+								foreach ( $items as $item ) {
+									$item_product = wc_get_product( $item['id'] );
 
-									if ( ! $woobt_product ) {
+									if ( ! $item_product ) {
 										wc_add_notice( esc_html__( 'One of the associated products is unavailable.', 'woobt' ), 'error' );
 										wc_add_notice( esc_html__( 'You cannot add this product to the cart.', 'woobt' ), 'error' );
 
 										return false;
 									}
 
-									if ( $woobt_product->is_type( 'variable' ) ) {
-										wc_add_notice( sprintf( esc_html__( '"%s" is un-purchasable.', 'woobt' ), esc_html( $woobt_product->get_name() ) ), 'error' );
+									if ( $item_product->is_type( 'variable' ) ) {
+										wc_add_notice( sprintf( esc_html__( '"%s" is un-purchasable.', 'woobt' ), esc_html( $item_product->get_name() ) ), 'error' );
 										wc_add_notice( esc_html__( 'You cannot add this product to the cart.', 'woobt' ), 'error' );
 
 										return false;
 									}
 
 									if ( get_post_meta( $product_id, 'woobt_custom_qty', true ) === 'on' ) {
-										if ( ( $limit_min = get_post_meta( $product_id, 'woobt_limit_each_min', true ) ) && ( $woobt_item['qty'] < (float) $limit_min ) ) {
-											wc_add_notice( sprintf( esc_html__( '"%s" does not reach the minimum quantity.', 'woobt' ), esc_html( $woobt_product->get_name() ) ), 'error' );
+										if ( ( $limit_min = get_post_meta( $product_id, 'woobt_limit_each_min', true ) ) && ( $item['qty'] < (float) $limit_min ) ) {
+											wc_add_notice( sprintf( esc_html__( '"%s" does not reach the minimum quantity.', 'woobt' ), esc_html( $item_product->get_name() ) ), 'error' );
 											wc_add_notice( esc_html__( 'You cannot add this product to the cart.', 'woobt' ), 'error' );
 
 											return false;
 										}
 
-										if ( ( $limit_max = get_post_meta( $product_id, 'woobt_limit_each_max', true ) ) && ( $woobt_item['qty'] > (float) $limit_max ) ) {
-											wc_add_notice( sprintf( esc_html__( '"%s" passes the maximum quantity.', 'woobt' ), esc_html( $woobt_product->get_name() ) ), 'error' );
+										if ( ( $limit_max = get_post_meta( $product_id, 'woobt_limit_each_max', true ) ) && ( $item['qty'] > (float) $limit_max ) ) {
+											wc_add_notice( sprintf( esc_html__( '"%s" passes the maximum quantity.', 'woobt' ), esc_html( $item_product->get_name() ) ), 'error' );
 											wc_add_notice( esc_html__( 'You cannot add this product to the cart.', 'woobt' ), 'error' );
 
 											return false;
@@ -872,41 +886,41 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 				function woobt_add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 					if ( isset( $cart_item_data['woobt_ids'] ) && ! empty( $cart_item_data['woobt_ids'] ) ) {
-						if ( $woobt_items = $this->woobt_get_items( $cart_item_data['woobt_ids'] ) ) {
+						if ( $items = $this->woobt_get_items( $cart_item_data['woobt_ids'] ) ) {
 							// add child products
-							foreach ( $woobt_items as $woobt_item ) {
-								$woobt_item_id           = $woobt_item['id'];
-								$woobt_item_price        = $woobt_item['price'];
-								$woobt_item_qty          = $woobt_item['qty'];
-								$woobt_item_variation_id = 0;
-								$woobt_item_variation    = array();
-								$woobt_item_product      = wc_get_product( $woobt_item_id );
+							foreach ( $items as $item ) {
+								$item_id           = $item['id'];
+								$item_price        = $item['price'];
+								$item_qty          = $item['qty'];
+								$item_variation_id = 0;
+								$item_variation    = array();
+								$item_product      = wc_get_product( $item_id );
 
-								if ( $woobt_item_product instanceof WC_Product_Variation ) {
+								if ( $item_product instanceof WC_Product_Variation ) {
 									// ensure we don't add a variation to the cart directly by variation ID
-									$woobt_item_variation_id = $woobt_item_id;
-									$woobt_item_id           = $woobt_item_product->get_parent_id();
-									$woobt_item_variation    = $woobt_item_product->get_variation_attributes();
+									$item_variation_id = $item_id;
+									$item_id           = $item_product->get_parent_id();
+									$item_variation    = $item_product->get_variation_attributes();
 								}
 
-								if ( $woobt_item_product && $woobt_item_product->is_in_stock() && $woobt_item_product->is_purchasable() ) {
+								if ( $item_product && $item_product->is_in_stock() && $item_product->is_purchasable() ) {
 									// calc new price
-									$woobt_item_new_price = $this->woobt_new_price( $woobt_item_product->get_price(), $woobt_item_price );
+									$item_new_price = $this->woobt_new_price( $item_product->get_price(), $item_price );
 
 									// add to cart
 									if ( get_post_meta( $product_id, 'woobt_separately', true ) !== 'on' ) {
-										$woobt_item_key = WC()->cart->add_to_cart( $woobt_item_id, $woobt_item_qty, $woobt_item_variation_id, $woobt_item_variation, array(
+										$item_key = WC()->cart->add_to_cart( $item_id, $item_qty, $item_variation_id, $item_variation, array(
 											'woobt_parent_id'  => $product_id,
 											'woobt_parent_key' => $cart_item_key,
-											'woobt_qty'        => $woobt_item_qty / $quantity,
-											'woobt_price'      => $woobt_item_new_price
+											'woobt_qty'        => $item_qty / $quantity,
+											'woobt_price'      => $item_new_price
 										) );
 
-										if ( $woobt_item_key ) {
-											WC()->cart->cart_contents[ $cart_item_key ]['woobt_keys'][] = $woobt_item_key;
+										if ( $item_key ) {
+											WC()->cart->cart_contents[ $cart_item_key ]['woobt_keys'][] = $item_key;
 										}
 									} else {
-										WC()->cart->add_to_cart( $woobt_item_id, $woobt_item_qty, $woobt_item_variation_id, $woobt_item_variation );
+										WC()->cart->add_to_cart( $item_id, $item_qty, $item_variation_id, $item_variation );
 									}
 								}
 							}
@@ -922,19 +936,19 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 						if ( ! empty( $cart_item['woobt_ids'] ) && ( $discount = get_post_meta( $cart_item['product_id'], 'woobt_discount', true ) ) && ( get_post_meta( $cart_item['product_id'], 'woobt_separately', true ) !== 'on' ) ) {
 							if ( $cart_item['variation_id'] > 0 ) {
-								$woobt_product = wc_get_product( $cart_item['variation_id'] );
+								$item_product = wc_get_product( $cart_item['variation_id'] );
 							} else {
-								$woobt_product = wc_get_product( $cart_item['product_id'] );
+								$item_product = wc_get_product( $cart_item['product_id'] );
 							}
 
-							$ori_price = $woobt_product->get_price();
+							$ori_price = $item_product->get_price();
 
 							// check if has linked products
 							$has_linked = false;
 
 							if ( isset( $cart_item['woobt_keys'] ) ) {
-								foreach ( $cart_item['woobt_keys'] as $woobt_key ) {
-									if ( isset( $cart_contents[ $woobt_key ] ) ) {
+								foreach ( $cart_item['woobt_keys'] as $key ) {
+									if ( isset( $cart_contents[ $key ] ) ) {
 										$has_linked = true;
 										break;
 									}
@@ -989,14 +1003,14 @@ if ( ! function_exists( 'woobt_init' ) ) {
 				}
 
 				function woobt_before_order_item_meta( $item_id ) {
-					if ( $woobt_parent_id = wc_get_order_item_meta( $item_id, '_woobt_parent_id', true ) ) {
+					if ( $parent_id = wc_get_order_item_meta( $item_id, '_woobt_parent_id', true ) ) {
 						$associated_text = get_option( '_woobt_associated_text', '' );
 
 						if ( empty( $associated_text ) ) {
 							$associated_text = esc_html__( '(bought together %s)', 'woobt' );
 						}
 
-						echo sprintf( $associated_text, get_the_title( $woobt_parent_id ) );
+						echo sprintf( $associated_text, get_the_title( $parent_id ) );
 					}
 				}
 
@@ -1009,12 +1023,12 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 					if ( ( get_option( '_woobt_search_id', 'no' ) === 'yes' ) && is_numeric( $keyword ) ) {
 						// search by id
-						$woobt_query_args = array(
+						$query_args = array(
 							'p'         => absint( $keyword ),
 							'post_type' => 'product'
 						);
 					} else {
-						$woobt_query_args = array(
+						$query_args = array(
 							'is_woobt'       => true,
 							'post_type'      => 'product',
 							'post_status'    => 'publish',
@@ -1024,7 +1038,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
 								array(
 									'taxonomy' => 'product_type',
 									'field'    => 'slug',
-									'terms'    => self::$woobt_types,
+									'terms'    => self::$types,
 									'operator' => 'IN',
 								)
 							)
@@ -1038,17 +1052,17 @@ if ( ! function_exists( 'woobt_init' ) ) {
 								}
 							}
 
-							$woobt_query_args['post__not_in'] = $exclude_ids;
+							$query_args['post__not_in'] = $exclude_ids;
 						}
 					}
 
-					$woobt_query = new WP_Query( $woobt_query_args );
+					$query = new WP_Query( $query_args );
 
-					if ( $woobt_query->have_posts() ) {
+					if ( $query->have_posts() ) {
 						echo '<ul>';
 
-						while ( $woobt_query->have_posts() ) {
-							$woobt_query->the_post();
+						while ( $query->have_posts() ) {
+							$query->the_post();
 							$product = wc_get_product( get_the_ID() );
 
 							if ( ! $product ) {
@@ -1131,19 +1145,19 @@ if ( ! function_exists( 'woobt_init' ) ) {
 												echo '<li class="woobt_default">* If don\'t choose any products, it can shows the default products <a
                                                     href="' . admin_url( 'admin.php?page=wpclever-woobt&tab=settings#search' ) . '" target="_blank">here</a>.</li>';
 
-												if ( $woobt_ids = get_post_meta( $post_id, 'woobt_ids', true ) ) {
-													if ( $woobt_items = $this->woobt_get_items( $woobt_ids ) ) {
-														foreach ( $woobt_items as $woobt_item ) {
-															$woobt_item_id    = $woobt_item['id'];
-															$woobt_item_price = $woobt_item['price'];
-															$woobt_item_qty   = $woobt_item['qty'];
-															$woobt_product    = wc_get_product( $woobt_item_id );
+												if ( $ids = get_post_meta( $post_id, 'woobt_ids', true ) ) {
+													if ( $items = $this->woobt_get_items( $ids ) ) {
+														foreach ( $items as $item ) {
+															$item_id      = $item['id'];
+															$item_price   = $item['price'];
+															$item_qty     = $item['qty'];
+															$item_product = wc_get_product( $item_id );
 
-															if ( ! $woobt_product ) {
+															if ( ! $item_product ) {
 																continue;
 															}
 
-															$this->woobt_product_data_li( $woobt_product, $woobt_item_price, $woobt_item_qty, false );
+															$this->woobt_product_data_li( $item_product, $item_price, $item_qty, false );
 														}
 													}
 												}
@@ -1240,8 +1254,8 @@ if ( ! function_exists( 'woobt_init' ) ) {
 
 				function woobt_save_option_field( $post_id ) {
 					if ( isset( $_POST['woobt_ids'] ) ) {
-						$woobt_ids = $this->woobt_clean_ids( sanitize_text_field( $_POST['woobt_ids'] ) );
-						update_post_meta( $post_id, 'woobt_ids', $woobt_ids );
+						$ids = $this->woobt_clean_ids( sanitize_text_field( $_POST['woobt_ids'] ) );
+						update_post_meta( $post_id, 'woobt_ids', $ids );
 					}
 
 					if ( ! empty( $_POST['woobt_discount'] ) ) {
@@ -1326,13 +1340,13 @@ if ( ! function_exists( 'woobt_init' ) ) {
 							$item_id = absint( $item );
 						}
 
-						$woobt_product = wc_get_product( $item_id );
+						$item_product = wc_get_product( $item_id );
 
-						if ( ! $woobt_product ) {
+						if ( ! $item_product ) {
 							continue;
 						}
 
-						if ( $woobt_product->is_type( 'variable' ) ) {
+						if ( $item_product->is_type( 'variable' ) ) {
 							return true;
 						}
 					}
@@ -1343,61 +1357,62 @@ if ( ! function_exists( 'woobt_init' ) ) {
 				function woobt_shortcode() {
 					ob_start();
 					$this->woobt_show_items();
-					$woobt_items = ob_get_contents();
+					$items = ob_get_contents();
 					ob_end_clean();
 
-					return $woobt_items;
+					return $items;
 				}
 
 				function woobt_show_items() {
 					global $product;
-					$product_id        = $product->get_id();
-					$woobt_items       = array();
-					$woobt_custom_qty  = get_post_meta( $product_id, 'woobt_custom_qty', true ) === 'on';
-					$woobt_sync_qty    = get_post_meta( $product_id, 'woobt_sync_qty', true ) === 'on';
-					$woobt_checked_all = get_post_meta( $product_id, 'woobt_checked_all', true ) === 'on';
-					$woobt_separately  = get_post_meta( $product_id, 'woobt_separately', true ) === 'on';
-					$woobt_count       = 1;
+					$product_id  = $product->get_id();
+					$items       = array();
+					$custom_qty  = get_post_meta( $product_id, 'woobt_custom_qty', true ) === 'on';
+					$sync_qty    = get_post_meta( $product_id, 'woobt_sync_qty', true ) === 'on';
+					$checked_all = get_post_meta( $product_id, 'woobt_checked_all', true ) === 'on';
+					$separately  = get_post_meta( $product_id, 'woobt_separately', true ) === 'on';
+					$count       = 1;
 
-					if ( $woobt_ids = get_post_meta( $product_id, 'woobt_ids', true ) ) {
-						$woobt_items = $this->woobt_get_items( $woobt_ids );
+					if ( $ids = get_post_meta( $product_id, 'woobt_ids', true ) ) {
+						$items = $this->woobt_get_items( $ids );
 					}
 
-					if ( ! $woobt_items && ( get_option( '_woobt_default', 'none' ) === 'upsells' ) ) {
-						$woobt_items = $product->get_upsell_ids();
+					if ( ! $items && ( get_option( '_woobt_default', 'none' ) === 'upsells' ) ) {
+						$items = $product->get_upsell_ids();
 					}
 
-					if ( ! $woobt_items && ( get_option( '_woobt_default', 'none' ) === 'related' ) ) {
-						$woobt_items = wc_get_related_products( $product_id );
+					if ( ! $items && ( get_option( '_woobt_default', 'none' ) === 'related' ) ) {
+						$items = wc_get_related_products( $product_id );
 					}
 
-					if ( ! $woobt_items && ( get_option( '_woobt_default', 'none' ) === 'related_upsells' ) ) {
-						$woobt_items_upsells = $product->get_upsell_ids();
-						$woobt_items_related = wc_get_related_products( $product_id );
-						$woobt_items         = array_merge( $woobt_items_upsells, $woobt_items_related );
+					if ( ! $items && ( get_option( '_woobt_default', 'none' ) === 'related_upsells' ) ) {
+						$items_upsells = $product->get_upsell_ids();
+						$items_related = wc_get_related_products( $product_id );
+						$items         = array_merge( $items_upsells, $items_related );
 					}
 
-					if ( $woobt_items && ! empty( $woobt_items ) ) {
+					if ( $items && ! empty( $items ) ) {
 						echo '<div class="woobt-wrap woobt-wrap-' . esc_attr( $product_id ) . '" data-id="' . esc_attr( $product_id ) . '">';
 
 						do_action( 'woobt_wrap_before', $product );
 
-						if ( $woobt_before_text = apply_filters( 'woobt_before_text', get_post_meta( $product_id, 'woobt_before_text', true ), $product_id ) ) {
-							echo '<div class="woobt_before_text woobt-before-text woobt-text">' . do_shortcode( stripslashes( $woobt_before_text ) ) . '</div>';
+						if ( $before_text = apply_filters( 'woobt_before_text', get_post_meta( $product_id, 'woobt_before_text', true ), $product_id ) ) {
+							echo '<div class="woobt_before_text woobt-before-text woobt-text">' . do_shortcode( stripslashes( $before_text ) ) . '</div>';
 						}
 						?>
                         <table cellspacing="0" class="woobt_products woobt-products woobt-table"
                                data-show-price="<?php echo esc_attr( get_option( '_woobt_show_price', 'yes' ) ); ?>"
-                               data-optional="<?php echo esc_attr( $woobt_custom_qty ? 'on' : 'off' ); ?>"
-                               data-sync-qty="<?php echo esc_attr( $woobt_sync_qty ? 'on' : 'off' ); ?>"
-                               data-variables="<?php echo esc_attr( $this->woobt_has_variables( $woobt_items ) ? 'yes' : 'no' ); ?>"
-                               data-product-type="<?php echo esc_attr( $product->get_type() ); ?>"
+                               data-optional="<?php echo esc_attr( $custom_qty ? 'on' : 'off' ); ?>"
+                               data-sync-qty="<?php echo esc_attr( $sync_qty ? 'on' : 'off' ); ?>"
+                               data-variables="<?php echo esc_attr( $this->woobt_has_variables( $items ) ? 'yes' : 'no' ); ?>"
                                data-product-id="<?php echo esc_attr( $product->get_type() === 'variable' ? '0' : $product_id ); ?>"
+                               data-product-type="<?php echo esc_attr( $product->get_type() ); ?>"
                                data-product-price="<?php echo esc_attr( $product->get_type() === 'variable' ? '0' : wc_get_price_to_display( $product ) ); ?>"
+                               data-product-price-suffix="<?php echo esc_attr( htmlentities( $product->get_price_suffix() ) ); ?>"
                                data-product-sku="<?php echo esc_attr( $product->get_sku() ); ?>"
                                data-product-o-sku="<?php echo esc_attr( $product->get_sku() ); ?>"
                                data-product-price-html="<?php echo esc_attr( htmlentities( $product->get_price_html() ) ); ?>"
-                               data-discount="<?php echo esc_attr( ! $woobt_separately && get_post_meta( $product_id, 'woobt_discount', true ) ? get_post_meta( $product_id, 'woobt_discount', true ) : '0' ); ?>">
+                               data-discount="<?php echo esc_attr( ! $separately && get_post_meta( $product_id, 'woobt_discount', true ) ? get_post_meta( $product_id, 'woobt_discount', true ) : '0' ); ?>">
                             <tbody>
 							<?php
 							// this item
@@ -1420,9 +1435,14 @@ if ( ! function_exists( 'woobt_init' ) ) {
 										<?php echo esc_html__( 'This item:', 'woobt' ) . ' <span>' . $product->get_name() . '</span>'; ?>
                                     </td>
 
-									<?php if ( $woobt_custom_qty ) { ?>
+									<?php if ( $custom_qty ) { ?>
                                         <td class="woobt-quantity">
 											<?php
+											if ( get_option( '_woobt_plus_minus', 'no' ) === 'yes' ) {
+												echo '<div class="woobt-quantity-input">';
+												echo '<div class="woobt-quantity-input-minus">-</div>';
+											}
+
 											woocommerce_quantity_input( array(
 												'classes' => array(
 													'input-text',
@@ -1433,6 +1453,11 @@ if ( ! function_exists( 'woobt_init' ) ) {
 													'text'
 												)
 											), $product );
+
+											if ( get_option( '_woobt_plus_minus', 'no' ) === 'yes' ) {
+												echo '<div class="woobt-quantity-input-plus">+</div>';
+												echo '</div><!-- /woobt-quantity-input -->';
+											}
 											?>
                                         </td>
 									<?php }
@@ -1441,7 +1466,7 @@ if ( ! function_exists( 'woobt_init' ) ) {
                                         <td class="woobt-price">
                                             <div class="woobt-price-new">
 												<?php
-												if ( ! $woobt_separately && ( $discount = get_post_meta( $product_id, 'woobt_discount', true ) ) ) {
+												if ( ! $separately && ( $discount = get_post_meta( $product_id, 'woobt_discount', true ) ) ) {
 													$sale_price = $product->get_price() * ( 100 - (float) $discount ) / 100;
 													echo wc_format_sale_price( $product->get_price(), $sale_price );
 												} else {
@@ -1462,106 +1487,119 @@ if ( ! function_exists( 'woobt_init' ) ) {
 							}
 
 							// other items
-							foreach ( $woobt_items as $woobt_item ) {
-								if ( is_array( $woobt_item ) ) {
-									$woobt_item_id    = $woobt_item['id'];
-									$woobt_item_price = $woobt_item['price'];
-									$woobt_item_qty   = $woobt_item['qty'];
+							foreach ( $items as $item ) {
+								if ( is_array( $item ) ) {
+									$item_id    = $item['id'];
+									$item_price = $item['price'];
+									$item_qty   = $item['qty'];
 								} else {
 									// make it works with upsells & related
-									$woobt_item_id    = absint( $woobt_item );
-									$woobt_item_price = '100%';
-									$woobt_item_qty   = 1;
+									$item_id    = absint( $item );
+									$item_price = '100%';
+									$item_qty   = 1;
 								}
 
-								$woobt_product = wc_get_product( $woobt_item_id );
+								$item_product = wc_get_product( $item_id );
 
-								if ( ! $woobt_product || ! in_array( $woobt_product->get_type(), self::$woobt_types, true ) ) {
+								if ( ! $item_product || ! in_array( $item_product->get_type(), self::$types, true ) ) {
 									continue;
 								}
 
-								$woobt_item_qty_min = 1;
-								$woobt_item_qty_max = 1000;
+								$item_qty_min = 1;
+								$item_qty_max = 1000;
 
-								if ( $woobt_custom_qty ) {
+								if ( $custom_qty ) {
 									if ( get_post_meta( $product_id, 'woobt_limit_each_min_default', true ) === 'on' ) {
-										$woobt_item_qty_min = $woobt_item_qty;
+										$item_qty_min = $item_qty;
 									} else {
-										$woobt_item_qty_min = absint( get_post_meta( $product_id, 'woobt_limit_each_min', true ) ?: 0 );
+										$item_qty_min = absint( get_post_meta( $product_id, 'woobt_limit_each_min', true ) ?: 0 );
 									}
 
-									$woobt_item_qty_max = absint( get_post_meta( $product_id, 'woobt_limit_each_max', true ) ?: 1000 );
+									$item_qty_max = absint( get_post_meta( $product_id, 'woobt_limit_each_max', true ) ?: 1000 );
 
-									if ( $woobt_item_qty < $woobt_item_qty_min ) {
-										$woobt_item_qty = $woobt_item_qty_min;
+									if ( $item_qty < $item_qty_min ) {
+										$item_qty = $item_qty_min;
 									}
 
-									if ( $woobt_item_qty > $woobt_item_qty_max ) {
-										$woobt_item_qty = $woobt_item_qty_max;
+									if ( $item_qty > $item_qty_max ) {
+										$item_qty = $item_qty_max;
 									}
 								}
 
-								$woobt_checked_individual = apply_filters( 'woobt_checked_individual', false, $woobt_item_id, $product_id );
+								$checked_individual = apply_filters( 'woobt_checked_individual', false, $item_id, $product_id );
 								?>
                                 <tr class="woobt-product woobt-product-together"
-                                    data-id="<?php echo esc_attr( $woobt_product->is_type( 'variable' ) || ! $woobt_product->is_in_stock() ? 0 : $woobt_item_id ); ?>"
-                                    data-name="<?php echo esc_attr( $woobt_product->get_name() ); ?>"
-                                    data-price="<?php echo esc_attr( ! $woobt_separately ? $woobt_item_price : '100%' ); ?>"
-                                    data-price-ori="<?php echo esc_attr( wc_get_price_to_display( $woobt_product ) ); ?>"
-                                    data-qty="<?php echo esc_attr( $woobt_item_qty ); ?>"
-                                    data-qty-ori="<?php echo esc_attr( $woobt_item_qty ); ?>">
+                                    data-id="<?php echo esc_attr( $item_product->is_type( 'variable' ) || ! $item_product->is_in_stock() ? 0 : $item_id ); ?>"
+                                    data-name="<?php echo esc_attr( $item_product->get_name() ); ?>"
+                                    data-price="<?php echo esc_attr( ! $separately ? $item_price : '100%' ); ?>"
+                                    data-price-suffix="<?php echo esc_attr( htmlentities( $item_product->get_price_suffix() ) ); ?>"
+                                    data-price-ori="<?php echo esc_attr( wc_get_price_to_display( $item_product ) ); ?>"
+                                    data-qty="<?php echo esc_attr( $item_qty ); ?>"
+                                    data-qty-ori="<?php echo esc_attr( $item_qty ); ?>">
 
-									<?php do_action( 'woobt_product_before', $woobt_product, $woobt_count ); ?>
+									<?php do_action( 'woobt_product_before', $item_product, $count ); ?>
 
                                     <td class="woobt-choose">
                                         <input class="woobt-checkbox" type="checkbox"
-                                               value="<?php echo esc_attr( $woobt_item_id ); ?>" <?php echo( ! $woobt_product->is_in_stock() ? 'disabled' : '' ); ?> <?php echo( $woobt_product->is_in_stock() && ( $woobt_checked_all || $woobt_checked_individual ) ? 'checked' : '' ); ?>/>
+                                               value="<?php echo esc_attr( $item_id ); ?>" <?php echo( ! $item_product->is_in_stock() ? 'disabled' : '' ); ?> <?php echo( $item_product->is_in_stock() && ( $checked_all || $checked_individual ) ? 'checked' : '' ); ?>/>
                                     </td>
 
 									<?php if ( get_option( '_woobt_show_thumb', 'yes' ) !== 'no' ) { ?>
                                         <td class="woobt-thumb">
                                             <div class="woobt-thumb-ori">
-												<?php echo $woobt_product->get_image(); ?>
+												<?php echo $item_product->get_image(); ?>
                                             </div>
                                             <div class="woobt-thumb-new"></div>
                                         </td>
 									<?php } ?>
 
                                     <td class="woobt-title">
-										<?php if ( ! $woobt_custom_qty ) {
-											$woobt_product_qty = '<span class="woobt-qty-num"><span class="woobt-qty">' . $woobt_item_qty . '</span> × </span>';
+										<?php if ( ! $custom_qty ) {
+											$item_product_qty = '<span class="woobt-qty-num"><span class="woobt-qty">' . $item_qty . '</span> × </span>';
 										} else {
-											$woobt_product_qty = '';
+											$item_product_qty = '';
 										}
 
-										if ( $woobt_product->is_in_stock() ) {
-											$woobt_product_name = $woobt_product->get_name();
+										if ( $item_product->is_in_stock() ) {
+											$item_product_name = $item_product->get_name();
 										} else {
-											$woobt_product_name = '<s>' . $woobt_product->get_name() . '</s>';
+											$item_product_name = '<s>' . $item_product->get_name() . '</s>';
 										}
 
 										if ( get_option( '_woobt_link', 'yes' ) !== 'no' ) {
-											$woobt_product_name = '<a ' . ( get_option( '_woobt_link', 'yes' ) === 'yes_popup' ? 'class="woosq-btn" data-id="' . $woobt_item_id . '"' : '' ) . ' href="' . $woobt_product->get_permalink() . '" ' . ( get_option( '_woobt_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>' . $woobt_product_name . '</a>';
+											$item_product_name = '<a ' . ( get_option( '_woobt_link', 'yes' ) === 'yes_popup' ? 'class="woosq-btn" data-id="' . $item_id . '"' : '' ) . ' href="' . $item_product->get_permalink() . '" ' . ( get_option( '_woobt_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>' . $item_product_name . '</a>';
 										}
 
-										echo apply_filters( 'woobt_product_name', $woobt_product_qty . $woobt_product_name, $woobt_product );
+										echo apply_filters( 'woobt_product_name', $item_product_qty . $item_product_name, $item_product );
 
 										if ( get_option( '_woobt_show_description', 'no' ) === 'yes' ) {
-											echo '<div class="woobt-description">' . $woobt_product->get_short_description() . '</div>';
+											echo '<div class="woobt-description">' . $item_product->get_short_description() . '</div>';
 										}
 
-										echo '<div class="woobt-availability">' . wc_get_stock_html( $woobt_product ) . '</div>';
+										echo '<div class="woobt-availability">' . wc_get_stock_html( $item_product ) . '</div>';
 										?>
                                     </td><!-- /woobt-title -->
 
-									<?php if ( $woobt_custom_qty ) {
+									<?php if ( $custom_qty ) {
 										echo '<td class="woobt-quantity">';
+
+										if ( get_option( '_woobt_plus_minus', 'no' ) === 'yes' ) {
+											echo '<div class="woobt-quantity-input">';
+											echo '<div class="woobt-quantity-input-minus">-</div>';
+										}
+
 										woocommerce_quantity_input( array(
 											'classes'     => array( 'input-text', 'woobt-qty', 'qty', 'text' ),
-											'input_value' => $woobt_item_qty,
-											'min_value'   => $woobt_item_qty_min,
-											'max_value'   => $woobt_item_qty_max
-										), $woobt_product );
+											'input_value' => $item_qty,
+											'min_value'   => $item_qty_min,
+											'max_value'   => $item_qty_max
+										), $item_product );
+
+										if ( get_option( '_woobt_plus_minus', 'no' ) === 'yes' ) {
+											echo '<div class="woobt-quantity-input-plus">+</div>';
+											echo '</div><!-- /woobt-quantity-input -->';
+										}
+
 										echo '</div><!-- /woobt-quantity -->';
 									}
 
@@ -1570,29 +1608,31 @@ if ( ! function_exists( 'woobt_init' ) ) {
                                             <div class="woobt-price-new"></div>
                                             <div class="woobt-price-ori">
 												<?php
-												if ( ! $woobt_separately && ( $woobt_item_price !== '100%' ) ) {
-													$woobt_item_new_price = $this->woobt_new_price( $woobt_product->get_price(), $woobt_item_price );
+												if ( ! $separately && ( $item_price !== '100%' ) ) {
+													$item_new_price = $this->woobt_new_price( wc_get_price_to_display( $item_product ), $item_price );
 
-													if ( $woobt_item_new_price < $woobt_product->get_price() ) {
-														$woobt_product_price = wc_format_sale_price( $woobt_product->get_price(), $woobt_item_new_price );
+													if ( $item_new_price < $item_product->get_price() ) {
+														$item_product_price = wc_format_sale_price( wc_get_price_to_display( $item_product ), $item_new_price );
 													} else {
-														$woobt_product_price = wc_price( $woobt_item_new_price );
+														$item_product_price = wc_price( $item_new_price );
 													}
+
+													$item_product_price .= $item_product->get_price_suffix();
 												} else {
-													$woobt_product_price = $woobt_product->get_price_html();
+													$item_product_price = $item_product->get_price_html();
 												}
 
-												echo apply_filters( 'woobt_product_price', $woobt_product_price, $woobt_product );
+												echo apply_filters( 'woobt_product_price', $item_product_price, $item_product );
 												?>
                                             </div>
                                         </td><!-- /woobt-price -->
 									<?php }
 
-									do_action( 'woobt_product_after', $woobt_product, $woobt_count );
+									do_action( 'woobt_product_after', $item_product, $count );
 									?>
                                 </tr>
 								<?php
-								$woobt_count ++;
+								$count ++;
 							} ?>
                             </tbody>
                         </table>
@@ -1600,8 +1640,8 @@ if ( ! function_exists( 'woobt_init' ) ) {
 						echo '<div class="woobt_total woobt-total woobt-text"></div>';
 						echo '<div class="woobt_alert woobt-alert woobt-text" style="display: none"></div>';
 
-						if ( $woobt_after_text = apply_filters( 'woobt_after_text', get_post_meta( $product_id, 'woobt_after_text', true ), $product_id ) ) {
-							echo '<div class="woobt_after_text woobt-after-text woobt-text">' . do_shortcode( stripslashes( $woobt_after_text ) ) . '</div>';
+						if ( $after_text = apply_filters( 'woobt_after_text', get_post_meta( $product_id, 'woobt_after_text', true ), $product_id ) ) {
+							echo '<div class="woobt_after_text woobt-after-text woobt-text">' . do_shortcode( stripslashes( $after_text ) ) . '</div>';
 						}
 
 						do_action( 'woobt_wrap_after', $product );
@@ -1611,26 +1651,26 @@ if ( ! function_exists( 'woobt_init' ) ) {
 				}
 
 				function woobt_get_items( $ids ) {
-					$woobt_arr = array();
-					$ids       = $this->woobt_clean_ids( $ids );
+					$_items = array();
+					$ids    = $this->woobt_clean_ids( $ids );
 
 					if ( ! empty( $ids ) ) {
 						$items = explode( ',', $ids );
 
 						if ( is_array( $items ) && count( $items ) > 0 ) {
 							foreach ( $items as $item ) {
-								$item_arr    = explode( '/', $item );
-								$woobt_arr[] = array(
-									'id'    => absint( isset( $item_arr[0] ) ? $item_arr[0] : 0 ),
-									'price' => isset( $item_arr[1] ) ? $this->woobt_format_price( $item_arr[1] ) : '100%',
-									'qty'   => (float) ( isset( $item_arr[2] ) ? $item_arr[2] : 1 )
+								$item_data = explode( '/', $item );
+								$_items[]  = array(
+									'id'    => absint( isset( $item_data[0] ) ? $item_data[0] : 0 ),
+									'price' => isset( $item_data[1] ) ? $this->woobt_format_price( $item_data[1] ) : '100%',
+									'qty'   => (float) ( isset( $item_data[2] ) ? $item_data[2] : 1 )
 								);
 							}
 						}
 					}
 
-					if ( count( $woobt_arr ) > 0 ) {
-						return $woobt_arr;
+					if ( count( $_items ) > 0 ) {
+						return $_items;
 					}
 
 					return false;

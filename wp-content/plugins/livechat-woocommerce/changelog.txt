@@ -1,5 +1,18 @@
 == Changelog ==
 
+= 1.5.3 =
+* docs update
+
+= 1.5.2 =
+* docs update
+
+= 1.5.1 =
+* plugin usage tracking enhancements
+
+= 1.5.0 =
+* plugin redesign
+* deactivation feedback form
+
 = 1.4.2 =
 * fix for undefined HTTP_USER_AGENT
 
